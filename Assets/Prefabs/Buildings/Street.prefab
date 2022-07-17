@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1449065718061941520}
   - component: {fileID: 493365165943171921}
   - component: {fileID: 1127065551087250974}
+  - component: {fileID: 4626831117671534185}
   m_Layer: 0
-  m_Name: Ground
-  m_TagString: Untagged
+  m_Name: Mesh
+  m_TagString: Street
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,6 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4626831117671534185
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3550997637137222389}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.96, y: 10, z: 0.96}
+  m_Center: {x: 0, y: 4.5, z: 0}
 --- !u!1 &7560515641076126346
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +108,7 @@ GameObject:
   - component: {fileID: 4481186095259632700}
   m_Layer: 0
   m_Name: Street
-  m_TagString: Untagged
+  m_TagString: Street
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

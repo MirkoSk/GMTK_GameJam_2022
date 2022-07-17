@@ -11,6 +11,10 @@ public class Map : MonoBehaviour
 	[SerializeField] Vector2 mapSize;
 	[SerializeField] GameObject cellPrefab;
 
+	[Space]
+	[InspectorButton("SpawnMap")]
+	[SerializeField] bool spawnMap;
+
 	// Private
 	Grid grid;
 	#endregion
@@ -39,8 +43,10 @@ public class Map : MonoBehaviour
 
 
     #region Private Functions
-	void SpawnMap(Vector2 mapSize)
+    void SpawnMap()
     {
+		if (grid == null) grid = transform.GetRequiredComponent<Grid>();
+
 		for (int y = 0; y < mapSize.y; y++)
 		{
 			for (int x = 0; x < mapSize.x; x++)

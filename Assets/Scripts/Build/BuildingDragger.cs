@@ -12,6 +12,7 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
 	// Private
 	Building parent;
+	List<Collider> collisions = new List<Collider>();
     #endregion
 
 
@@ -42,11 +43,23 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 			if (hitInfo.transform.tag.Contains(Constants.TAG_CELL))
 			{
 				parent.transform.position = hitInfo.transform.parent.position;
+
+				if (collisions.Count > 0)
+				{
+					parent.IndicateValidPlacement(false);
+					GameEvents.BuildingPlacementChanged(false);
+				}
+				else
+                {
+					parent.IndicateValidPlacement(true);
+					GameEvents.BuildingPlacementChanged(true);
+				}
 			}
 			else
 			{
 				parent.transform.position = hitInfo.point;
 			}
+
 		}
 	}
 
@@ -54,23 +67,33 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 	{
 
 	}
-	#endregion
+
+    private void OnTriggerEnter(Collider other)
+    {
+		if (!collisions.Contains(other)) collisions.Add(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+		if (collisions.Contains(other)) collisions.Remove(other);
+    }
+    #endregion
 
 
 
-	#region Public Functions
+    #region Public Functions
 
-	#endregion
-
-
-
-	#region Private Functions
-
-	#endregion
+    #endregion
 
 
 
-	#region Coroutines
+    #region Private Functions
 
-	#endregion
+    #endregion
+
+
+
+    #region Coroutines
+
+    #endregion
 }

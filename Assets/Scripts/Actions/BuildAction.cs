@@ -9,6 +9,7 @@ public class BuildAction : Action
 	#region Variable Declarations
 	public int Cost;
 	public List<GameObject> Buildings = new List<GameObject>();
+    public int Production = 1;
     #endregion
 
 

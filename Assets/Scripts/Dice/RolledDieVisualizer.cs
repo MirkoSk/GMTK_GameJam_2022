@@ -51,7 +51,7 @@ public class RolledDieVisualizer : MonoBehaviour
 		DieState currentDieState = GameManager.Instance.DiceSet.Find(x => x.Die == die);
 		currentFaceUp = currentDieState.CurrentFaceUp;
 		face.sprite = currentFaceUp.Sprite;
-		UpdateDieVisuals(die, null);
+		UpdateDieVisuals(die, null, false);
 	}
 
     private void OnDisable()
@@ -73,7 +73,7 @@ public class RolledDieVisualizer : MonoBehaviour
 
 
     #region Private Functions
-	void UpdateDieVisuals(Die die, Action action)
+	void UpdateDieVisuals(Die die, Action action, bool success)
     {
 		if (die != this.die) return;
 

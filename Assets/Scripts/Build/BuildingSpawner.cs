@@ -14,6 +14,7 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 	GameObject building;
 	Die die;
 	GameObject draggable;
+	int buildingProductionValue;
     #endregion
 
 
@@ -33,26 +34,13 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 		RaycastHit hitInfo;
 		Physics.Raycast(positionRay, out hitInfo, 100f, raycastLayerMask);
 		draggable = Instantiate(building, hitInfo.point, Quaternion.identity);
-		draggable.GetComponent<Building>().Initialize(die);
+		draggable.GetComponent<Building>().Initialize(die, buildingProductionValue);
+		eventData.pointerDrag = draggable.GetComponentInChildren<BuildingDragger>().gameObject;
 	}
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		if (building == null) return;
 
-		Ray positionRay = Camera.main.ScreenPointToRay(new Vector3(eventData.position.x, eventData.position.y, 0));
-		RaycastHit hitInfo;
-		if (Physics.Raycast(positionRay, out hitInfo, 100f, raycastLayerMask))
-		{
-			if (hitInfo.transform.tag.Contains(Constants.TAG_CELL))
-			{
-				draggable.transform.position = hitInfo.transform.parent.position;
-			}
-			else
-			{
-				draggable.transform.position = hitInfo.point;
-			}
-		}
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
@@ -64,10 +52,11 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
 
 	#region Public Functions
-	public void Initialize(GameObject buildingPrefab, Die die)
+	public void Initialize(GameObject buildingPrefab, Die die, int productionValue)
     {
 		building = buildingPrefab;
 		this.die = die;
+		this.buildingProductionValue = productionValue;
     }
 	#endregion
 

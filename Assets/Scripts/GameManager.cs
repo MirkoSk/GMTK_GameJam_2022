@@ -10,6 +10,26 @@ public class DieState
 	public bool ActionUsed;
 }
 
+[System.Serializable]
+public class District
+{
+	public int ID;
+	public Die Die;
+	public int ProductionValue;
+
+	public District(int id)
+	{
+		ID = id;
+	}
+
+	public District(int id, Die die/*, int productionValue*/)
+    {
+		ID = id;
+		Die = die;
+		//ProductionValue = productionValue;
+    }
+}
+
 public class GameManager : MonoBehaviour 
 {
 
@@ -21,6 +41,7 @@ public class GameManager : MonoBehaviour
 
 	// Private
 	bool goldenDieComplete;
+	List<District> districts = new List<District>();
 	#endregion
 	
 	
@@ -28,6 +49,7 @@ public class GameManager : MonoBehaviour
 	#region Public Properties
 	public List<DieState> DiceSet { get => diceSet; }
 	public bool GoldenDieComplete { get => goldenDieComplete; }
+	public List<District> Districts { get => districts; }
 	#endregion
 	
 	
@@ -38,23 +60,40 @@ public class GameManager : MonoBehaviour
 		if (Instance == null) Instance = this;
 		else if (Instance != null) Destroy(gameObject);
 	}
+
+    private void Start()
+    {
+		CreateDistrictList();
+    }
 	#endregion
-	
-	
-	
+
+
+
 	#region Public Functions
-	
+
 	#endregion
-	
-	
-	
+
+
+
 	#region Private Functions
-	
+	void CreateDistrictList()
+	{
+		Cell[] cells = FindObjectsOfType<Cell>();
+		for (int i = 0; i < cells.Length; i++)
+		{
+			if (cells[i].District == 0) continue;
+			else if (districts.Count == 0) districts.Add(new District(cells[i].District));
+			else if (districts.Find(x => x.ID == cells[i].District) == null)
+			{
+				districts.Add(new District(cells[i].District));
+			}
+		}
+	}
 	#endregion
-	
-	
-	
+
+
+
 	#region Coroutines
-	
+
 	#endregion
 }

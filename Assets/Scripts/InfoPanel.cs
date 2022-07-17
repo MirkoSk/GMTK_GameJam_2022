@@ -28,7 +28,7 @@ public class InfoPanel : MonoBehaviour
     #region Unity Event Functions
     private void Start()
     {
-		ShowDiceConfigPanel(null, null);
+		ShowDiceConfigPanel(null, null, false);
 	}
 
     private void OnEnable () 
@@ -77,7 +77,7 @@ public class InfoPanel : MonoBehaviour
 		buttonAction.SetActive(true);
     }
 
-	void ShowDiceConfigPanel(Die die, Action action)
+	void ShowDiceConfigPanel(Die die, Action action, bool success)
     {
 		DeactivateAllPanels();
 		diceConfigPanel.SetActive(true);

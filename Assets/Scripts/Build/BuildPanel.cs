@@ -29,7 +29,15 @@ public class BuildPanel : MonoBehaviour
 
 
     #region Unity Event Functions
+    private void OnEnable()
+    {
+        GameEvents.OnBuildingPlacementChanged += UpdateOkButton;
+    }
 
+    private void OnDisable()
+    {
+        GameEvents.OnBuildingPlacementChanged -= UpdateOkButton;
+    }
     #endregion
 
 
@@ -79,16 +87,15 @@ public class BuildPanel : MonoBehaviour
                 GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
-                GameEvents.ActionCompleted(die, action);
+                GameEvents.ActionCompleted(die, action, true);
             });
             buttonCancel.gameObject.SetActive(true);
-            // TODO: Cancel button should do something different
             buttonCancel.onClick.AddListener(() => 
             {
                 GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
-                GameEvents.ActionCompleted(die, action); 
+                GameEvents.ActionCompleted(die, action, false); 
             });
             SelectBuilding(buildAction, die);
             GameEvents.ActionConfirmed(die, action);
@@ -113,7 +120,21 @@ public class BuildPanel : MonoBehaviour
         for (int i = 0; i < shapes.Count; i++)
         {
             if (i != randomNumber) shapes[i].enabled = false;
-            else shapes[i].GetComponent<BuildingSpawner>().Initialize(buildAction.Buildings[randomNumber], die);
+            else shapes[i].GetComponent<BuildingSpawner>().Initialize(buildAction.Buildings[randomNumber], die, buildAction.Production);
+        }
+    }
+
+    void UpdateOkButton(bool validBuildingPlacement)
+    {
+        if (validBuildingPlacement)
+        {
+            buttonOkay.GetComponent<Image>().color = Color.white;
+            buttonOkay.enabled = true;
+        }
+        else
+        {
+            buttonOkay.GetComponent<Image>().color = Color.grey;
+            buttonOkay.enabled = false;
         }
     }
     #endregion

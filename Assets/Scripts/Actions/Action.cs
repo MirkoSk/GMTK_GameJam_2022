@@ -2,36 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Face")]
-public class Face : ScriptableObject
+public enum ActionType
+{
+	Build,
+	Produce,
+	Research
+}
+
+public class Action : ScriptableObject
 {
 
 	#region Variable Declarations
-	public Sprite Sprite;
-	public Action Action;
+	protected ActionType type;
 	#endregion
-	
-	
-	
+
+
+
 	#region Public Properties
-	
+	public ActionType Type { get => type; }
 	#endregion
-	
-	
-	
+
+
+
 	#region Public Functions
-	
+
 	#endregion
-	
-	
-	
+
+
+
 	#region Private Functions
-	
+
 	#endregion
-	
-	
-	
+
+
+
 	#region Coroutines
-	
+
 	#endregion
 }

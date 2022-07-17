@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Face")]
-public class Face : ScriptableObject
+public class Building : MonoBehaviour
 {
 
 	#region Variable Declarations
-	public Sprite Sprite;
-	public Action Action;
+	[SerializeField] Sprite shape;
 	#endregion
 	
 	
 	
 	#region Public Properties
-	
+	public Sprite Shape { get => shape; }
 	#endregion
 	
 	

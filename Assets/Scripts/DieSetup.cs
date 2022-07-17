@@ -29,12 +29,7 @@ public class DieSetup : MonoBehaviour
 	#region Unity Event Functions
 	private void Start () 
 	{
-		background.color = die.Color;
-        for (int i = 0; i < faces.Count; i++)
-        {
-			faces[i].sprite = die.Faces[i].Sprite;
-			faces[i].color = die.Color;
-		}
+		UpdateDieDisplay();
 	}
 	#endregion
 	
@@ -47,7 +42,23 @@ public class DieSetup : MonoBehaviour
 	
 	
 	#region Private Functions
-	
+	void UpdateDieDisplay()
+    {
+		background.color = die.Color;
+		for (int i = 0; i < faces.Count; i++)
+		{
+			if (die.Faces[i] != null)
+			{
+				faces[i].sprite = die.Faces[i].Sprite;
+			}
+			else
+			{
+				faces[i].enabled = false;
+			}
+
+			faces[i].color = die.Color;
+		}
+	}
 	#endregion
 	
 	

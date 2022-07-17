@@ -2,19 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Face")]
-public class Face : ScriptableObject
+public class BuildPanel : MonoBehaviour 
 {
 
 	#region Variable Declarations
-	public Sprite Sprite;
-	public Action Action;
+	// Serialized Fields
+	
+	// Private
+	
 	#endregion
 	
 	
 	
 	#region Public Properties
 	
+	#endregion
+	
+	
+	
+	#region Unity Event Functions
+	private void Start () 
+	{
+		
+	}
 	#endregion
 	
 	

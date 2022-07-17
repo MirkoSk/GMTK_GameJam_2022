@@ -1,49 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class FaceDraggable : MonoBehaviour
+public class Building : MonoBehaviour
 {
 
 	#region Variable Declarations
-	// Serialized Fields
-	[SerializeField] Image face;
+	[SerializeField] Sprite shape;
+	#endregion
 
-	// Private
-	
-	#endregion
-	
-	
-	
+
+
 	#region Public Properties
-	
+	public Sprite Shape { get => shape; }
 	#endregion
-	
-	
-	
+
+
+
 	#region Unity Event Functions
-	private void Start () 
-	{
-		
-	}
+	
 	#endregion
-	
-	
-	
+
+
+
 	#region Public Functions
-	
+
 	#endregion
-	
-	
-	
+
+
+
 	#region Private Functions
-	
+
 	#endregion
-	
-	
-	
+
+
+
 	#region Coroutines
-	
+
 	#endregion
 }

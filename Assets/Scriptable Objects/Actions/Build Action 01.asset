@@ -14,4 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Effect: Build 1
   Cost: 1
-  Buildings: []
+  Buildings:
+  - {fileID: 8675066223685675490, guid: 442c59693fbd09c4fbbd1a7cb22d0894, type: 3}
+  - {fileID: 8675066223685675490, guid: 779c6881dc3850e4e819a208e1da7288, type: 3}
+  - {fileID: 8675066223685675490, guid: 6bc7945229d310e47aeed73dd378a921, type: 3}
+  - {fileID: 8675066223685675490, guid: 0391bdf752b587a4f9361c39888d29aa, type: 3}
+  - {fileID: 8675066223685675490, guid: f5254bd54291a374b98f0d99c6896f8a, type: 3}
+  - {fileID: 8675066223685675490, guid: 49d0fc4f57eaaeb4e8d5b0d7a3734c2d, type: 3}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Build 01
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 47740e4d4319acd4490b413a79d84bb6, type: 3}
-  ActionType: 0
+  Action: {fileID: 11400000, guid: 2d5505be5e056cf4ebb75f506087dac8, type: 2}

@@ -216,7 +216,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 453473181682579822}
         m_TargetAssemblyTypeName: RolledDieVisualizer, Assembly-CSharp
-        m_MethodName: ActivateDieAction
+        m_MethodName: SelectDieAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

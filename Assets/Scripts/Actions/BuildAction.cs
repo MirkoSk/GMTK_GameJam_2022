@@ -7,9 +7,8 @@ public class BuildAction : Action
 {
 
 	#region Variable Declarations
-	public string Effect;
 	public int Cost;
-	public List<Building> Buildings = new List<Building>();
+	public List<GameObject> Buildings = new List<GameObject>();
     #endregion
 
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 658908179985062404}
   - component: {fileID: 1208419463876067642}
   - component: {fileID: 4233715514401332082}
-  - component: {fileID: 2356760862845216636}
+  - component: {fileID: 9016732926404914458}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2356760862845216636
+--- !u!114 &9016732926404914458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,13 +178,13 @@ PrefabInstance:
     - target: {fileID: 7560515641076126346, guid: 0dd75defcd2964d46bc1937c1c562575,
         type: 3}
       propertyPath: m_Name
-      value: Building 4a
+      value: Building 4d
       objectReference: {fileID: 0}
     - target: {fileID: 7610094117179065037, guid: 0dd75defcd2964d46bc1937c1c562575,
         type: 3}
       propertyPath: shape
       value: 
-      objectReference: {fileID: 21300000, guid: 1512228463606f4479bd4e3be4ef3554,
+      objectReference: {fileID: 21300000, guid: 30b06ff84946b724f932f4498e3a68fa,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0dd75defcd2964d46bc1937c1c562575, type: 3}

@@ -92,6 +92,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: {fileID: 0}
+  raycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &8709972307609034470
 GameObject:
   m_ObjectHideFlags: 0

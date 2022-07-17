@@ -13,6 +13,8 @@ public class Action : ScriptableObject
 {
 
 	#region Variable Declarations
+	public string Effect;
+
 	protected ActionType type;
 	#endregion
 

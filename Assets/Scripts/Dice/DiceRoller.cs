@@ -10,29 +10,26 @@ public class DiceRoller : MonoBehaviour
 	[SerializeField] GameObject buttonRoll;
 	[SerializeField] GameObject diceLayout;
 
-	// Private
-	
-	#endregion
-	
-	
-	
-	#region Public Properties
-	
-	#endregion
-	
-	
-	
-	#region Unity Event Functions
-	private void Start () 
-	{
-		
-	}
-	#endregion
-	
-	
-	
-	#region Public Functions
-	public void RollTheDice()
+    // Private
+
+    #endregion
+
+
+
+    #region Public Properties
+
+    #endregion
+
+
+
+    #region Unity Event Functions
+
+    #endregion
+
+
+
+    #region Public Functions
+    public void RollTheDice()
     {
 		int diceRolls = GameManager.Instance.GoldenDieComplete ? 4 : 3;
         for (int i = 0; i < diceRolls; i++)

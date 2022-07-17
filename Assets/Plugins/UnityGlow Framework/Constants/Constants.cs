@@ -6,6 +6,7 @@ public class Constants
 {
     #region Tags and Layers
     public static readonly string TAG_PLAYER = "Player";
+    public static readonly string TAG_CELL = "Cell";
     #endregion
 
 

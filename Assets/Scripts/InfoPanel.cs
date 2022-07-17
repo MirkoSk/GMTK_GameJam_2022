@@ -8,7 +8,7 @@ public class InfoPanel : MonoBehaviour
 	#region Variable Declarations
 	// Serialized Fields
 	[SerializeField] GameObject diceConfigPanel;
-	[SerializeField] GameObject buildPanel;
+	[SerializeField] BuildPanel buildPanel;
 	[SerializeField] GameObject productionPanel;
 	[SerializeField] GameObject researchPanel;
 	[SerializeField] GameObject buttonAction;
@@ -28,21 +28,19 @@ public class InfoPanel : MonoBehaviour
     #region Unity Event Functions
     private void Start()
     {
-		diceConfigPanel.SetActive(true);
-		buildPanel.SetActive(false);
-		productionPanel.SetActive(false);
-		researchPanel.SetActive(false);
-		buttonAction.SetActive(false);
+		ShowDiceConfigPanel(null, null);
 	}
 
     private void OnEnable () 
 	{
 		GameEvents.OnActionSelected += UpdatePanelContent;
+		GameEvents.OnActionCompleted += ShowDiceConfigPanel;
 	}
 
 	private void OnDisable()
 	{
 		GameEvents.OnActionSelected -= UpdatePanelContent;
+		GameEvents.OnActionCompleted -= ShowDiceConfigPanel;
 	}
 	#endregion
 
@@ -55,14 +53,13 @@ public class InfoPanel : MonoBehaviour
 
 
 	#region Private Functions
-	void UpdatePanelContent(Action action)
+	void UpdatePanelContent(Die die, Action action)
     {
         switch (action.Type)
         {
             case ActionType.Build:
-				buildPanel.SetActive(true);
+				buildPanel.Activate(die, action);
 				diceConfigPanel.SetActive(false);
-				buttonAction.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Build";
                 break;
             case ActionType.Produce:
 				productionPanel.SetActive(true);
@@ -79,6 +76,21 @@ public class InfoPanel : MonoBehaviour
         }
 		buttonAction.SetActive(true);
     }
+
+	void ShowDiceConfigPanel(Die die, Action action)
+    {
+		DeactivateAllPanels();
+		diceConfigPanel.SetActive(true);
+	}
+
+	void DeactivateAllPanels()
+    {
+		diceConfigPanel.SetActive(false);
+		buildPanel.Deactivate();
+		productionPanel.SetActive(false);
+		researchPanel.SetActive(false);
+		buttonAction.SetActive(false);
+	}
 	#endregion
 
 

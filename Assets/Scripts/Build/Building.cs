@@ -7,6 +7,8 @@ public class Building : MonoBehaviour
 
 	#region Variable Declarations
 	[SerializeField] Sprite shape;
+
+	Die die;
 	#endregion
 
 
@@ -24,7 +26,15 @@ public class Building : MonoBehaviour
 
 
 	#region Public Functions
-
+	public void Initialize(Die die)
+    {
+		this.die = die;
+		Renderer[] renderers = transform.GetComponentsInChildren<Renderer>();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+			renderers[i].material.color = die.Color;
+        }
+    }
 	#endregion
 
 

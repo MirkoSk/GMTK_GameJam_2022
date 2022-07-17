@@ -8,6 +8,7 @@ public class Die : ScriptableObject
 
 	#region Variable Declarations
 	public Color Color;
+	public Material Material;
 	public Face[] Faces = new Face[6];
 	#endregion
 	

@@ -56,6 +56,7 @@ public class BuildPanel : MonoBehaviour
             if (i < buildAction.Buildings.Count)
             {
                 shapes[i].sprite = buildAction.Buildings[i].GetComponent<Building>().Shape;
+                shapes[i].color = die.Color;
                 shapes[i].enabled = true;
                 shapes[i].gameObject.SetActive(true);
             }
@@ -89,7 +90,7 @@ public class BuildPanel : MonoBehaviour
                 buttonCancel.gameObject.SetActive(false);
                 GameEvents.ActionCompleted(die, action); 
             });
-            SelectBuilding(buildAction);
+            SelectBuilding(buildAction, die);
             GameEvents.ActionConfirmed(die, action);
         });
         buttonAction.gameObject.SetActive(true);
@@ -104,7 +105,7 @@ public class BuildPanel : MonoBehaviour
 
 
     #region Private Functions
-    void SelectBuilding(BuildAction buildAction)
+    void SelectBuilding(BuildAction buildAction, Die die)
     {
         int randomNumber = Random.Range(0, buildAction.Buildings.Count);
         Building selectedBuilding = buildAction.Buildings[randomNumber].GetComponent<Building>();
@@ -112,7 +113,7 @@ public class BuildPanel : MonoBehaviour
         for (int i = 0; i < shapes.Count; i++)
         {
             if (i != randomNumber) shapes[i].enabled = false;
-            else shapes[i].GetComponent<BuildingSpawner>().Building = buildAction.Buildings[randomNumber];
+            else shapes[i].GetComponent<BuildingSpawner>().Initialize(buildAction.Buildings[randomNumber], die);
         }
     }
     #endregion

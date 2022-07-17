@@ -7,12 +7,12 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
 
 	#region Variable Declarations
-	public GameObject Building;
-
 	// Serialized Fields
 	[SerializeField] LayerMask raycastLayerMask;
 
 	// Private
+	GameObject building;
+	Die die;
 	GameObject draggable;
     #endregion
 
@@ -27,17 +27,18 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     #region Unity Event Functions
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		if (Building == null) return;
+		if (building == null) return;
 
 		Ray positionRay = Camera.main.ScreenPointToRay(new Vector3(eventData.position.x, eventData.position.y, 0));
 		RaycastHit hitInfo;
 		Physics.Raycast(positionRay, out hitInfo, 100f, raycastLayerMask);
-		draggable = Instantiate(Building, hitInfo.point, Quaternion.identity);
+		draggable = Instantiate(building, hitInfo.point, Quaternion.identity);
+		draggable.GetComponent<Building>().Initialize(die);
 	}
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		if (Building == null) return;
+		if (building == null) return;
 
 		Ray positionRay = Camera.main.ScreenPointToRay(new Vector3(eventData.position.x, eventData.position.y, 0));
 		RaycastHit hitInfo;
@@ -63,7 +64,11 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
 
 	#region Public Functions
-
+	public void Initialize(GameObject buildingPrefab, Die die)
+    {
+		building = buildingPrefab;
+		this.die = die;
+    }
 	#endregion
 
 

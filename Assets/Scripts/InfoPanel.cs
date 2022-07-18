@@ -9,7 +9,7 @@ public class InfoPanel : MonoBehaviour
 	// Serialized Fields
 	[SerializeField] GameObject diceConfigPanel;
 	[SerializeField] BuildPanel buildPanel;
-	[SerializeField] GameObject productionPanel;
+	[SerializeField] ProductionPanel productionPanel;
 	[SerializeField] GameObject researchPanel;
 	[SerializeField] GameObject buttonAction;
 
@@ -62,9 +62,8 @@ public class InfoPanel : MonoBehaviour
 				diceConfigPanel.SetActive(false);
                 break;
             case ActionType.Produce:
-				productionPanel.SetActive(true);
+				productionPanel.Activate(die, action);
 				diceConfigPanel.SetActive(false);
-				buttonAction.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Produce";
 				break;
             case ActionType.Research:
 				researchPanel.SetActive(true);
@@ -87,7 +86,7 @@ public class InfoPanel : MonoBehaviour
     {
 		diceConfigPanel.SetActive(false);
 		buildPanel.Deactivate();
-		productionPanel.SetActive(false);
+		productionPanel.Deactivate();
 		researchPanel.SetActive(false);
 		buttonAction.SetActive(false);
 	}

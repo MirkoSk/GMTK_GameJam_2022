@@ -19,6 +19,7 @@ public class RolledDieVisualizer : MonoBehaviour
 	// Private
 	Face currentFaceUp;
 	Button button;
+	bool dieCurrentlySelected;
     #endregion
 
 
@@ -66,6 +67,9 @@ public class RolledDieVisualizer : MonoBehaviour
     #region Public Functions
     public void SelectDieAction()
     {
+		if (dieCurrentlySelected) return;
+
+		dieCurrentlySelected = true;
 		GameEvents.ActionSelected(die, currentFaceUp.Action);
 	}
     #endregion
@@ -78,6 +82,7 @@ public class RolledDieVisualizer : MonoBehaviour
 		if (die != this.die) return;
 
 		transform.DOScale(Vector3.one, 0.5f);
+		dieCurrentlySelected = false;
 
 		DieState currentDieState = GameManager.Instance.DiceSet.Find(x => x.Die == die);
 
@@ -100,6 +105,7 @@ public class RolledDieVisualizer : MonoBehaviour
 		if (die != this.die)
         {
 			transform.DOScale(Vector3.one, 0.5f);
+			dieCurrentlySelected = false;
         }
 		else
 		{

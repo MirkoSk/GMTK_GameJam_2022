@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110069b4daa27684e9808df6201abab0, type: 3}
   m_Name: Produce Action 01
   m_EditorClassIdentifier: 
+  Effect: Produce in 1 district.

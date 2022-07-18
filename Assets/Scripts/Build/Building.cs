@@ -72,7 +72,7 @@ public class Building : MonoBehaviour
     {
 		RaycastHit hit;
 		Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, cellCheckLayerMask);
-		int districtID = hit.transform.GetComponentInParent<Cell>().District;
+		int districtID = hit.transform.GetComponentInParent<Cell>().DistrictID;
 		district = GameManager.Instance.Districts.Find(x => x.ID == districtID);
 		district.ProductionValue += productionValue;
 		if (district.Die == null) district.Die = die;

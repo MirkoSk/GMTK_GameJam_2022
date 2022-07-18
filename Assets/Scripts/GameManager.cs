@@ -16,6 +16,7 @@ public class District
 	public int ID;
 	public Die Die;
 	public int ProductionValue;
+	public List<Cell> Cells = new List<Cell>();
 
 	public District(int id)
 	{
@@ -81,11 +82,20 @@ public class GameManager : MonoBehaviour
 		Cell[] cells = FindObjectsOfType<Cell>();
 		for (int i = 0; i < cells.Length; i++)
 		{
-			if (cells[i].District == 0) continue;
-			else if (districts.Count == 0) districts.Add(new District(cells[i].District));
-			else if (districts.Find(x => x.ID == cells[i].District) == null)
+			if (cells[i].DistrictID == 0) continue;
+			else if (districts.Count == 0)
+            {
+				districts.Add(new District(cells[i].DistrictID));
+				districts[0].Cells.Add(cells[i]);
+			}
+			else if (districts.Find(x => x.ID == cells[i].DistrictID) == null)
 			{
-				districts.Add(new District(cells[i].District));
+				districts.Add(new District(cells[i].DistrictID));
+				districts[districts.Count - 1].Cells.Add(cells[i]);
+			}
+			else
+            {
+				districts.Find(x => x.ID == cells[i].DistrictID).Cells.Add(cells[i]);
 			}
 		}
 	}

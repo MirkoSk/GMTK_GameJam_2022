@@ -58,6 +58,8 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 			else
 			{
 				parent.transform.position = hitInfo.point;
+				parent.IndicateValidPlacement(false);
+				GameEvents.BuildingPlacementChanged(false);
 			}
 
 		}

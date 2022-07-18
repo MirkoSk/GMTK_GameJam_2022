@@ -55,19 +55,17 @@ public class InfoPanel : MonoBehaviour
 	#region Private Functions
 	void UpdatePanelContent(Die die, Action action)
     {
-        switch (action.Type)
+		DeactivateAllPanels();
+		switch (action.Type)
         {
             case ActionType.Build:
 				buildPanel.Activate(die, action);
-				diceConfigPanel.SetActive(false);
                 break;
             case ActionType.Produce:
 				productionPanel.Activate(die, action);
-				diceConfigPanel.SetActive(false);
 				break;
             case ActionType.Research:
 				researchPanel.SetActive(true);
-				diceConfigPanel.SetActive(false);
 				buttonAction.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Research";
 				break;
             default:

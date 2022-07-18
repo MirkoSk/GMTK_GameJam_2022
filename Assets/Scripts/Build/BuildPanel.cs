@@ -77,6 +77,8 @@ public class BuildPanel : MonoBehaviour
 
         // Set up action button
         buttonAction.GetComponentInChildren<TextMeshProUGUI>().text = "Build";
+        buttonAction.GetComponent<Image>().color = Color.white;
+        buttonAction.enabled = true;
         buttonAction.onClick.RemoveAllListeners();
         buttonAction.onClick.AddListener(() => 
         {

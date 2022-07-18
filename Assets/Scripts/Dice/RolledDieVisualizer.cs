@@ -39,6 +39,7 @@ public class RolledDieVisualizer : MonoBehaviour
     private void OnEnable () 
 	{
 		GameEvents.OnActionSelected += HighlightDie;
+		GameEvents.OnActionConfirmed += DeactivateDie;
 		GameEvents.OnActionCompleted += UpdateDieVisuals;
 
 		// Show golden die?
@@ -58,6 +59,7 @@ public class RolledDieVisualizer : MonoBehaviour
     private void OnDisable()
     {
 		GameEvents.OnActionSelected -= HighlightDie;
+		GameEvents.OnActionConfirmed -= DeactivateDie;
 		GameEvents.OnActionCompleted -= UpdateDieVisuals;
 	}
     #endregion
@@ -69,7 +71,6 @@ public class RolledDieVisualizer : MonoBehaviour
     {
 		if (dieCurrentlySelected) return;
 
-		dieCurrentlySelected = true;
 		GameEvents.ActionSelected(die, currentFaceUp.Action);
 	}
     #endregion
@@ -79,12 +80,10 @@ public class RolledDieVisualizer : MonoBehaviour
     #region Private Functions
 	void UpdateDieVisuals(Die die, Action action, bool success)
     {
-		if (die != this.die) return;
-
 		transform.DOScale(Vector3.one, 0.5f);
 		dieCurrentlySelected = false;
 
-		DieState currentDieState = GameManager.Instance.DiceSet.Find(x => x.Die == die);
+		DieState currentDieState = GameManager.Instance.DiceSet.Find(x => x.Die == this.die);
 
 		if (!currentDieState.ActionUsed)
 		{
@@ -110,7 +109,13 @@ public class RolledDieVisualizer : MonoBehaviour
 		else
 		{
 			transform.DOScale(Vector3.one * 1.2f, 0.5f);
+			dieCurrentlySelected = true;
 		}
+    }
+
+	void DeactivateDie(Die die, Action action)
+    {
+		button.enabled = false;
     }
     #endregion
 

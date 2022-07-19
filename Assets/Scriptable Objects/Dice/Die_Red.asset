@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Die_Red
   m_EditorClassIdentifier: 
   Color: {r: 1, g: 0, b: 0, a: 1}
+  Material: {fileID: 0}
   Faces:
   - {fileID: 11400000, guid: 6cc4cb1e7eba4754eade45a80faaff02, type: 2}
   - {fileID: 11400000, guid: 6cc4cb1e7eba4754eade45a80faaff02, type: 2}
   - {fileID: 11400000, guid: 74646465ffff7774ba3a93ca272cc91f, type: 2}
   - {fileID: 11400000, guid: 74646465ffff7774ba3a93ca272cc91f, type: 2}
-  - {fileID: 11400000, guid: c830dd74a5a4ce5479ffe51d2f1b760f, type: 2}
-  - {fileID: 11400000, guid: c830dd74a5a4ce5479ffe51d2f1b760f, type: 2}
+  - {fileID: 11400000, guid: 6cc4cb1e7eba4754eade45a80faaff02, type: 2}
+  - {fileID: 11400000, guid: 74646465ffff7774ba3a93ca272cc91f, type: 2}

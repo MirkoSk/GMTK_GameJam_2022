@@ -4,8 +4,27 @@ using UnityEngine;
 
 public static class GameEvents
 {
-    #region Actions
-    public delegate void ActionHandler(Die die, Action action);
+	#region Turns
+	public delegate void TurnHandler();
+	public static event TurnHandler OnNewTurn;
+	public static void NewTurn()
+	{
+		Debug.Log("[GAME_EVENT] OnNewTurn");
+		OnNewTurn?.Invoke();
+	}
+
+	public static event TurnHandler OnDiceRolled;
+	public static void DiceRolled()
+    {
+		Debug.Log("[GAME_EVENT] OnDiceRolled");
+		OnDiceRolled?.Invoke();
+    }
+	#endregion
+
+
+
+	#region Actions
+	public delegate void ActionHandler(Die die, Action action);
 	public static event ActionHandler OnActionSelected;
 	public static void ActionSelected(Die die, Action action)
     {

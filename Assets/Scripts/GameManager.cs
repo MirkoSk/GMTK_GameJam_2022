@@ -66,6 +66,16 @@ public class GameManager : MonoBehaviour
     {
 		CreateDistrictList();
     }
+
+    private void OnEnable()
+    {
+		GameEvents.OnActionCompleted += HandleActionCompletion;
+    }
+
+	private void OnDisable()
+	{
+		GameEvents.OnActionCompleted -= HandleActionCompletion;
+	}
 	#endregion
 
 
@@ -97,6 +107,26 @@ public class GameManager : MonoBehaviour
             {
 				districts.Find(x => x.ID == cells[i].DistrictID).Cells.Add(cells[i]);
 			}
+		}
+	}
+
+	void HandleActionCompletion(Die die, Action action, bool success)
+	{
+		bool allDiceActionsUsed = true;
+
+		diceSet.ForEach((dieState) =>
+		{
+			if (dieState.CurrentFaceUp != null && !dieState.ActionUsed) allDiceActionsUsed = false;
+		});
+
+		if (allDiceActionsUsed)
+        {
+			diceSet.ForEach((dieState) => 
+			{
+				dieState.CurrentFaceUp = null;
+				dieState.ActionUsed = false; 
+			});
+			GameEvents.NewTurn();
 		}
 	}
 	#endregion

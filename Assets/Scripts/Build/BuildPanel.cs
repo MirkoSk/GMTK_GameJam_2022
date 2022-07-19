@@ -84,6 +84,9 @@ public class BuildPanel : MonoBehaviour
         {
             buttonAction.gameObject.SetActive(false);
             buttonOkay.gameObject.SetActive(true);
+            buttonOkay.GetComponent<Image>().color = Color.grey;
+            buttonOkay.enabled = false;
+            buttonOkay.onClick.RemoveAllListeners();
             buttonOkay.onClick.AddListener(() => 
             {
                 GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
@@ -92,6 +95,7 @@ public class BuildPanel : MonoBehaviour
                 GameEvents.ActionCompleted(die, action, true);
             });
             buttonCancel.gameObject.SetActive(true);
+            buttonCancel.onClick.RemoveAllListeners();
             buttonCancel.onClick.AddListener(() => 
             {
                 GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;

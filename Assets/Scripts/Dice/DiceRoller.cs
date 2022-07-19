@@ -23,7 +23,15 @@ public class DiceRoller : MonoBehaviour
 
 
     #region Unity Event Functions
+    private void OnEnable()
+    {
+        GameEvents.OnNewTurn += ShowRerollButton;
+    }
 
+    private void OnDisable()
+    {
+        GameEvents.OnNewTurn -= ShowRerollButton;
+    }
     #endregion
 
 
@@ -39,6 +47,8 @@ public class DiceRoller : MonoBehaviour
         }
 
 		ShowRolledDice();
+
+        GameEvents.DiceRolled();
     }
 	#endregion
 	
@@ -49,6 +59,12 @@ public class DiceRoller : MonoBehaviour
     {
 		buttonRoll.SetActive(false);
 		diceLayout.SetActive(true);
+    }
+
+    void ShowRerollButton()
+    {
+        buttonRoll.SetActive(true);
+        diceLayout.SetActive(false);
     }
 	#endregion
 

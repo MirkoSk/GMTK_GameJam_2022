@@ -38,6 +38,7 @@ public class RolledDieVisualizer : MonoBehaviour
 
     private void OnEnable () 
 	{
+		GameEvents.OnDiceRolled += ActivateDie;
 		GameEvents.OnActionSelected += HighlightDie;
 		GameEvents.OnActionConfirmed += DeactivateDie;
 		GameEvents.OnActionCompleted += UpdateDieVisuals;
@@ -58,6 +59,7 @@ public class RolledDieVisualizer : MonoBehaviour
 
     private void OnDisable()
     {
+		GameEvents.OnDiceRolled -= ActivateDie;
 		GameEvents.OnActionSelected -= HighlightDie;
 		GameEvents.OnActionConfirmed -= DeactivateDie;
 		GameEvents.OnActionCompleted -= UpdateDieVisuals;
@@ -78,6 +80,13 @@ public class RolledDieVisualizer : MonoBehaviour
 
 
     #region Private Functions
+	void ActivateDie()
+    {
+		border.color = die.Color;
+		face.color = die.Color;
+		button.enabled = true;
+	}
+
 	void UpdateDieVisuals(Die die, Action action, bool success)
     {
 		transform.DOScale(Vector3.one, 0.5f);
@@ -87,8 +96,8 @@ public class RolledDieVisualizer : MonoBehaviour
 
 		if (!currentDieState.ActionUsed)
 		{
-			border.color = die.Color;
-			face.color = die.Color;
+			border.color = this.die.Color;
+			face.color = this.die.Color;
 			button.enabled = true;
 		}
 		else

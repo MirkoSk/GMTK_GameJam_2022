@@ -22703,6 +22703,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1654217422}
+  - component: {fileID: 1654217425}
   - component: {fileID: 1654217424}
   - component: {fileID: 1654217423}
   m_Layer: 5
@@ -22772,6 +22773,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654217421}
   m_CullTransparentMesh: 1
+--- !u!114 &1654217425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654217421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afae98287abee4447b3a0ac32ab6c0c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnTextmesh: {fileID: 2008478227}
 --- !u!1001 &1664779987
 PrefabInstance:
   m_ObjectHideFlags: 0

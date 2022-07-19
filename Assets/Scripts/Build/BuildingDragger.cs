@@ -13,6 +13,7 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 	// Private
 	Building parent;
 	List<Collider> collisions = new List<Collider>();
+	Coroutine rotateCoroutine;
     #endregion
 
 
@@ -29,7 +30,17 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 		parent = transform.GetRequiredComponentInParent<Building>();
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    private void OnEnable()
+    {
+		GameEvents.OnActionCompleted += Deactivate;
+    }
+
+	private void OnDisable()
+	{
+		GameEvents.OnActionCompleted -= Deactivate;
+	}
+
+	public void OnBeginDrag(PointerEventData eventData)
 	{
 
 	}
@@ -63,7 +74,6 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 				parent.IndicateValidPlacement(false);
 				GameEvents.BuildingPlacementChanged(false);
 			}
-
 		}
 	}
 
@@ -81,23 +91,39 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
 		if (collisions.Contains(other)) collisions.Remove(other);
     }
-    #endregion
+
+    private void Update()
+    {
+		if (Input.GetMouseButtonDown(1) && rotateCoroutine == null)
+		{
+			rotateCoroutine = StartCoroutine(RotateBuilding());
+		}
+	}
+	#endregion
 
 
 
-    #region Public Functions
+	#region Public Functions
 
-    #endregion
-
-
-
-    #region Private Functions
-
-    #endregion
+	#endregion
 
 
 
-    #region Coroutines
+	#region Private Functions
+	void Deactivate(Die die, Action action, bool success)
+    {
+		enabled = false;
+    }
+	#endregion
 
-    #endregion
+
+
+	#region Coroutines
+	IEnumerator RotateBuilding()
+	{
+		yield return new WaitForSeconds(0.1f);
+		parent.transform.Rotate(Vector3.up, 90);
+		rotateCoroutine = null;
+	}
+	#endregion
 }

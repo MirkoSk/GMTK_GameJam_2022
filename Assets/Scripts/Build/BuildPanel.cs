@@ -17,7 +17,7 @@ public class BuildPanel : MonoBehaviour
     [SerializeField] Button buttonCancel;
 
     // Private
-
+    BuildAction buildAction;
     #endregion
 
 
@@ -45,8 +45,6 @@ public class BuildPanel : MonoBehaviour
     #region Public Functions
     public void Activate(Die die, Action action)
     {
-        BuildAction buildAction;
-
         try
         {
             buildAction = action as BuildAction;
@@ -90,8 +88,11 @@ public class BuildPanel : MonoBehaviour
             buttonOkay.onClick.AddListener(() => 
             {
                 GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
+                GoldTracker.Instance.AddGold(-buildAction.Cost);
+
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
+                
                 GameEvents.ActionCompleted(die, action, true);
             });
             buttonCancel.gameObject.SetActive(true);
@@ -99,8 +100,10 @@ public class BuildPanel : MonoBehaviour
             buttonCancel.onClick.AddListener(() => 
             {
                 GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
+                
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
+                
                 GameEvents.ActionCompleted(die, action, false); 
             });
             SelectBuilding(buildAction, die);
@@ -132,7 +135,7 @@ public class BuildPanel : MonoBehaviour
 
     void UpdateOkButton(bool validBuildingPlacement)
     {
-        if (validBuildingPlacement)
+        if (validBuildingPlacement && GoldTracker.Instance.CurrentGold >= buildAction.Cost)
         {
             buttonOkay.GetComponent<Image>().color = Color.white;
             buttonOkay.enabled = true;

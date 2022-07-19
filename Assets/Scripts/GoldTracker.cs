@@ -42,10 +42,19 @@ public class GoldTracker : MonoBehaviour
 
 
 	#region Public Functions
-	public void AddGold(int amount)
+	public bool AddGold(int amount)
     {
 		CurrentGold += amount;
-		goldTextmesh.text = CurrentGold.ToString();
+		if (CurrentGold < 0)
+        {
+			CurrentGold -= amount;
+			return false;
+		}
+		else
+		{
+			goldTextmesh.text = CurrentGold.ToString();
+			return true;
+		}
     }
 	#endregion
 

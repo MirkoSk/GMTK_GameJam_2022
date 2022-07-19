@@ -16,7 +16,7 @@ MonoBehaviour:
   Material: {fileID: 0}
   Faces:
   - {fileID: 11400000, guid: 6cc4cb1e7eba4754eade45a80faaff02, type: 2}
-  - {fileID: 11400000, guid: 6cc4cb1e7eba4754eade45a80faaff02, type: 2}
+  - {fileID: 11400000, guid: 3ecb7301af8f83446b0db14d7e9a0c2a, type: 2}
   - {fileID: 11400000, guid: 74646465ffff7774ba3a93ca272cc91f, type: 2}
   - {fileID: 11400000, guid: 74646465ffff7774ba3a93ca272cc91f, type: 2}
   - {fileID: 11400000, guid: 6cc4cb1e7eba4754eade45a80faaff02, type: 2}

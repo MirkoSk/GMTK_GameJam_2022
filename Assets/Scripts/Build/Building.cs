@@ -13,13 +13,15 @@ public class Building : MonoBehaviour
 
 	Die die;
 	int productionValue;
-	District district;
+	District currentDistrict;
+	bool buildingPlaced;
 	#endregion
 
 
 
 	#region Public Properties
 	public Sprite Shape { get => shape; }
+	public Die Die { get => die; }
     #endregion
 
 
@@ -27,12 +29,14 @@ public class Building : MonoBehaviour
     #region Unity Event Functions
     private void OnEnable()
     {
-		GameEvents.OnActionCompleted += UpdateDistrict;
+		GameEvents.OnBuildingPlacementChanged += UpdateDistrict;
+		GameEvents.OnActionCompleted += PlaceBuilding;
     }
 
 	private void OnDisable()
 	{
-		GameEvents.OnActionCompleted -= UpdateDistrict;
+		GameEvents.OnBuildingPlacementChanged -= UpdateDistrict;
+		GameEvents.OnActionCompleted -= PlaceBuilding;
 	}
 	#endregion
 
@@ -68,17 +72,43 @@ public class Building : MonoBehaviour
 
 
 	#region Private Functions
-	void UpdateDistrict(Die die, Action action, bool success)
+	void UpdateDistrict(bool validPlacement)
     {
-		RaycastHit hit;
-		Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, cellCheckLayerMask);
-		int districtID = hit.transform.GetComponentInParent<Cell>().DistrictID;
-		district = GameManager.Instance.Districts.Find(x => x.ID == districtID);
-		district.ProductionValue += productionValue;
-		if (district.Die == null) district.Die = die;
-
-		GameEvents.OnActionCompleted -= UpdateDistrict;
+		if (validPlacement)
+		{
+			RaycastHit hit;
+			Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, cellCheckLayerMask);
+			int districtID = hit.transform.GetComponentInParent<Cell>().DistrictID;
+			if (districtID != 0)
+            {
+				if (currentDistrict == null)
+                {
+					currentDistrict = new District(districtID, die);
+				}
+				else
+				{
+					currentDistrict.Die = die;
+					currentDistrict.ID = districtID;
+				}
+			}
+		}
+		else
+        {
+			currentDistrict = null;
+        }
 	}
+
+	void PlaceBuilding(Die die, Action action, bool success)
+    {
+		if (buildingPlaced) return;
+
+		District gmDistrict = GameManager.Instance.Districts.Find(x => x.ID == currentDistrict.ID);
+		if (gmDistrict.Die == null) gmDistrict.Die = die;
+		gmDistrict.ProductionValue += productionValue;
+		buildingPlaced = true;
+
+		GameEvents.OnBuildingPlacementChanged -= UpdateDistrict;
+    }
 	#endregion
 
 

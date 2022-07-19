@@ -47,7 +47,7 @@ public class DistrictSelector : MonoBehaviour
                 if (cell.DistrictID != 0)
                 {
                     District district = GameManager.Instance.Districts.Find(x => x.ID == cell.DistrictID);
-                    if (district.Die != null /*&& district.Die == actionDie*/) // TODO: Uncomment as soon as turns are implemented
+                    if (district.Die != null && district.Die == actionDie)
                     {
                         ShowMouseOverOutlinesOfDistrict(district);
                         currentlyMousOveredDistrict = district.ID;

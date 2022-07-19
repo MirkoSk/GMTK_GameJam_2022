@@ -11,7 +11,7 @@ public class TurnTracker : MonoBehaviour
 	[SerializeField] TextMeshProUGUI turnTextmesh;
 
 	// Private
-	int currentTurn = 1;
+	int currentTurn;
 	#endregion
 
 

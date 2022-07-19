@@ -37,14 +37,16 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 	public void OnDrag(PointerEventData eventData)
 	{
 		Ray positionRay = Camera.main.ScreenPointToRay(new Vector3(eventData.position.x, eventData.position.y, 0));
-		RaycastHit hitInfo;
-		if (Physics.Raycast(positionRay, out hitInfo, 100f, raycastLayerMask))
+		RaycastHit hit;
+		if (Physics.Raycast(positionRay, out hit, 100f, raycastLayerMask))
 		{
-			if (hitInfo.transform.tag.Contains(Constants.TAG_CELL))
+			Cell cell = hit.collider.GetComponentInParent<Cell>();
+			if (cell != null)
 			{
-				parent.transform.position = hitInfo.transform.parent.position;
+				parent.transform.position = cell.transform.position;
 
-				if (collisions.Count > 0)
+				District currentDistrict = GameManager.Instance.Districts.Find(x => x.ID == cell.DistrictID);
+				if (collisions.Count > 0 || (currentDistrict != null && currentDistrict.Die != null && currentDistrict.Die != parent.Die))
 				{
 					parent.IndicateValidPlacement(false);
 					GameEvents.BuildingPlacementChanged(false);
@@ -57,7 +59,7 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 			}
 			else
 			{
-				parent.transform.position = hitInfo.point;
+				parent.transform.position = hit.point;
 				parent.IndicateValidPlacement(false);
 				GameEvents.BuildingPlacementChanged(false);
 			}

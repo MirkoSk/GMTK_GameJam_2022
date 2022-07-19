@@ -19258,6 +19258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectTextmesh: {fileID: 1643065350}
   buttonAction: {fileID: 522481003}
+  buttonOkay: {fileID: 67775480}
+  buttonCancel: {fileID: 1417203117}
   districtSelector: {fileID: 1454067275}
 --- !u!114 &1454067275
 MonoBehaviour:
@@ -22376,7 +22378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

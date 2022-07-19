@@ -11,6 +11,8 @@ public class ProductionPanel : MonoBehaviour
     // Serialized Fields
     [SerializeField] TextMeshProUGUI effectTextmesh;
     [SerializeField] Button buttonAction;
+    [SerializeField] Button buttonOkay;
+    [SerializeField] Button buttonCancel;
     [SerializeField] DistrictSelector districtSelector;
 
     // Private
@@ -57,19 +59,30 @@ public class ProductionPanel : MonoBehaviour
         effectTextmesh.text = produceAction.Effect;
         gameObject.SetActive(true);
 
-        // Set up action button
-        buttonAction.gameObject.SetActive(true);
-        buttonAction.GetComponentInChildren<TextMeshProUGUI>().text = "Produce";
-        buttonAction.GetComponent<Image>().color = Color.grey;
-        buttonAction.enabled = false;
-        buttonAction.onClick.RemoveAllListeners();
-        buttonAction.onClick.AddListener(() =>
+        // Set up buttons
+        buttonAction.gameObject.SetActive(false);
+        buttonOkay.gameObject.SetActive(true);
+        buttonOkay.GetComponent<Image>().color = Color.grey;
+        buttonOkay.enabled = false;
+        buttonOkay.onClick.RemoveAllListeners();
+        buttonOkay.onClick.AddListener(() =>
         {
             GoldTracker.Instance.AddGold(productionValueOfSelectedDistrict);
             GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
-            buttonAction.gameObject.SetActive(false);
+            buttonOkay.gameObject.SetActive(false);
+            buttonCancel.gameObject.SetActive(false);
             
             GameEvents.ActionCompleted(die, action, true);
+        });
+        buttonCancel.gameObject.SetActive(true);
+        buttonCancel.onClick.RemoveAllListeners();
+        buttonCancel.onClick.AddListener(() =>
+        {
+            GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
+            buttonOkay.gameObject.SetActive(false);
+            buttonCancel.gameObject.SetActive(false);
+
+            GameEvents.ActionCompleted(die, action, false);
         });
 
         districtSelector.Initialize(die);
@@ -88,14 +101,14 @@ public class ProductionPanel : MonoBehaviour
     {
         if (district != null)
         {
-            buttonAction.GetComponent<Image>().color = Color.white;
-            buttonAction.enabled = true;
+            buttonOkay.GetComponent<Image>().color = Color.white;
+            buttonOkay.enabled = true;
             productionValueOfSelectedDistrict = district.ProductionValue;
         }
         else
         {
-            buttonAction.GetComponent<Image>().color = Color.grey;
-            buttonAction.enabled = false;
+            buttonOkay.GetComponent<Image>().color = Color.grey;
+            buttonOkay.enabled = false;
         }
     }
 	#endregion

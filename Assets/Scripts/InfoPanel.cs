@@ -71,7 +71,6 @@ public class InfoPanel : MonoBehaviour
             default:
                 break;
         }
-		buttonAction.SetActive(true);
     }
 
 	void ShowDiceConfigPanel(Die die, Action action, bool success)

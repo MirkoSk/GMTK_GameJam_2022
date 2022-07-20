@@ -10,7 +10,7 @@ public class InfoPanel : MonoBehaviour
 	[SerializeField] GameObject diceConfigPanel;
 	[SerializeField] BuildPanel buildPanel;
 	[SerializeField] ProductionPanel productionPanel;
-	[SerializeField] GameObject researchPanel;
+	[SerializeField] ResearchPanel researchPanel;
 	[SerializeField] GameObject buttonAction;
 
     // Private
@@ -65,8 +65,7 @@ public class InfoPanel : MonoBehaviour
 				productionPanel.Activate(die, action);
 				break;
             case ActionType.Research:
-				researchPanel.SetActive(true);
-				buttonAction.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Research";
+				researchPanel.Activate(die, action);
 				break;
             default:
                 break;
@@ -84,7 +83,7 @@ public class InfoPanel : MonoBehaviour
 		diceConfigPanel.SetActive(false);
 		buildPanel.Deactivate();
 		productionPanel.Deactivate();
-		researchPanel.SetActive(false);
+		researchPanel.Deactivate();
 		buttonAction.SetActive(false);
 	}
 	#endregion

@@ -20,11 +20,17 @@ public class BuildAction : Action
 
 
 
-    #region Public Functions
+    #region Unity Event Functions
     private void Awake()
     {
         type = ActionType.Build;
     }
+    #endregion
+
+
+
+    #region Public Functions
+
     #endregion
 
 

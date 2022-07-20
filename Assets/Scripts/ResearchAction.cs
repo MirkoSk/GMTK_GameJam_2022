@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/ProduceAction")]
-public class ProduceAction : Action
+[CreateAssetMenu(menuName = "Scriptable Objects/ResearchAction")]
+public class ResearchAction : Action
 {
 
 	#region Variable Declarations
@@ -24,14 +24,14 @@ public class ProduceAction : Action
 	#region Unity Event Functions
 	private void Awake()
 	{
-		type = ActionType.Produce;
+		type = ActionType.Research;
 	}
 	#endregion
 
 
 
 	#region Public Functions
-	
+
 	#endregion
 
 

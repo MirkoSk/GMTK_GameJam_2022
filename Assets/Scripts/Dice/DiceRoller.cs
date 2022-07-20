@@ -43,7 +43,7 @@ public class DiceRoller : MonoBehaviour
         for (int i = 0; i < diceRolls; i++)
         {
 			DieState currentDieState = GameManager.Instance.DiceSet[i];
-			currentDieState.CurrentFaceUp = currentDieState.Die.Faces[Random.Range(0, 5)];
+			currentDieState.CurrentFaceUp = currentDieState.Die.Faces[Random.Range(0, 6)];
         }
 
 		ShowRolledDice();

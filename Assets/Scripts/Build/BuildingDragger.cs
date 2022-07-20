@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Collider))]
 public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 
@@ -12,8 +13,6 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
 	// Private
 	Building parent;
-	List<Collider> collisions = new List<Collider>();
-	Coroutine rotateCoroutine;
     #endregion
 
 
@@ -47,6 +46,36 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
 	public void OnDrag(PointerEventData eventData)
 	{
+		UpdateBuildingPlacement(eventData);
+	}
+
+	public void OnEndDrag(PointerEventData eventData)
+	{
+
+	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+		if (!parent.Collisions.Contains(other)) parent.Collisions.Add(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+		if (parent.Collisions.Contains(other)) parent.Collisions.Remove(other);
+    }
+	#endregion
+
+
+
+	#region Public Functions
+
+	#endregion
+
+
+
+	#region Private Functions
+	void UpdateBuildingPlacement(PointerEventData eventData)
+	{
 		Ray positionRay = Camera.main.ScreenPointToRay(new Vector3(eventData.position.x, eventData.position.y, 0));
 		RaycastHit hit;
 		if (Physics.Raycast(positionRay, out hit, 100f, raycastLayerMask))
@@ -57,13 +86,13 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 				parent.transform.position = cell.transform.position;
 
 				District currentDistrict = GameManager.Instance.Districts.Find(x => x.ID == cell.DistrictID);
-				if (collisions.Count > 0 || (currentDistrict != null && currentDistrict.Die != null && currentDistrict.Die != parent.Die))
+				if (parent.Collisions.Count > 0 || (currentDistrict != null && currentDistrict.Die != null && currentDistrict.Die != parent.Die))
 				{
 					parent.IndicateValidPlacement(false);
 					GameEvents.BuildingPlacementChanged(false);
 				}
 				else
-                {
+				{
 					parent.IndicateValidPlacement(true);
 					GameEvents.BuildingPlacementChanged(true);
 				}
@@ -77,41 +106,9 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 		}
 	}
 
-	public void OnEndDrag(PointerEventData eventData)
-	{
-
-	}
-
-    private void OnTriggerEnter(Collider other)
-    {
-		if (!collisions.Contains(other)) collisions.Add(other);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-		if (collisions.Contains(other)) collisions.Remove(other);
-    }
-
-    private void Update()
-    {
-		if (Input.GetMouseButtonDown(1) && rotateCoroutine == null)
-		{
-			rotateCoroutine = StartCoroutine(RotateBuilding());
-		}
-	}
-	#endregion
-
-
-
-	#region Public Functions
-
-	#endregion
-
-
-
-	#region Private Functions
 	void Deactivate(Die die, Action action, bool success)
     {
+		GetComponent<Collider>().isTrigger = false;
 		enabled = false;
     }
 	#endregion
@@ -119,11 +116,6 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
 
 	#region Coroutines
-	IEnumerator RotateBuilding()
-	{
-		yield return new WaitForSeconds(0.1f);
-		parent.transform.Rotate(Vector3.up, 90);
-		rotateCoroutine = null;
-	}
+
 	#endregion
 }

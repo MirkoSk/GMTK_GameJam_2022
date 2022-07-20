@@ -200,11 +200,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: {fileID: 0}
-  goldImage: {fileID: 1710596968777778884}
-  invalidImage: {fileID: 1362269744850917267}
+  goldImages:
+  - {fileID: 1710596968777778884}
+  invalidImages:
+  - {fileID: 1362269744850917267}
   cellCheckLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!54 &825069659717409812
 Rigidbody:
   m_ObjectHideFlags: 0

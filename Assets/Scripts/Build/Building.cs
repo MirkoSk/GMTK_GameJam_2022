@@ -7,14 +7,17 @@ public class Building : MonoBehaviour
 
 	#region Variable Declarations
 	[SerializeField] Sprite shape;
-	[SerializeField] GameObject goldImage;
-	[SerializeField] GameObject invalidImage;
+	[SerializeField] List<GameObject> goldImages = new List<GameObject>();
+	[SerializeField] List<GameObject> invalidImages = new List<GameObject>();
 	[SerializeField] LayerMask cellCheckLayerMask;
+	[SerializeField] LayerMask collisionLayerMask;
 
 	Die die;
 	int productionValue;
 	District currentDistrict;
+	List<Collider> collisions = new List<Collider>();
 	bool buildingPlaced;
+	Coroutine rotateCoroutine;
 	#endregion
 
 
@@ -22,6 +25,7 @@ public class Building : MonoBehaviour
 	#region Public Properties
 	public Sprite Shape { get => shape; }
 	public Die Die { get => die; }
+	public List<Collider> Collisions { get => collisions; }
     #endregion
 
 
@@ -37,6 +41,16 @@ public class Building : MonoBehaviour
 	{
 		GameEvents.OnBuildingPlacementChanged -= UpdateDistrict;
 		GameEvents.OnActionCompleted -= PlaceBuilding;
+	}
+
+	private void Update()
+	{
+		if (buildingPlaced) return;
+
+		if (Input.GetMouseButtonDown(1) && rotateCoroutine == null)
+		{
+			rotateCoroutine = StartCoroutine(RotateBuilding());
+		}
 	}
 	#endregion
 
@@ -58,13 +72,13 @@ public class Building : MonoBehaviour
 	{
 		if (placeable)
         {
-			goldImage.SetActive(true);
-			invalidImage.SetActive(false);
-        }
+			goldImages.ForEach((image) => { image.SetActive(true); });
+			invalidImages.ForEach((image) => { image.SetActive(false); });
+		}
 		else
         {
-			goldImage.SetActive(false);
-			invalidImage.SetActive(true);
+			goldImages.ForEach((image) => { image.SetActive(false); });
+			invalidImages.ForEach((image) => { image.SetActive(true); });
 		}
 	}
 	#endregion
@@ -114,6 +128,42 @@ public class Building : MonoBehaviour
 
 
 	#region Coroutines
+	IEnumerator RotateBuilding()
+	{
+		yield return new WaitForSeconds(0.1f);
+		
+		transform.Rotate(Vector3.up, 90);
 
+		yield return new WaitForSeconds(0.1f);
+
+		bool validPlacement = true;
+		BuildingDragger[] draggers = GetComponentsInChildren<BuildingDragger>();
+        for (int i = 0; i < draggers.Length; i++)
+        {
+			BoxCollider collider = draggers[i].GetComponent<BoxCollider>();
+			Vector3 colliderSize = new Vector3(collider.transform.localScale.x * collider.size.x, collider.transform.localScale.y * collider.size.y, collider.transform.localScale.z * collider.size.z);
+
+			//Debug.DrawLine(collider.transform.position + collider.center, collider.transform.position + collider.center + collider.transform.right * colliderSize.x * 0.5f, Color.cyan, 3f);
+			//Debug.DrawLine(collider.transform.position + collider.center, collider.transform.position + collider.center + collider.transform.forward * colliderSize.z * 0.5f, Color.cyan, 3f);
+
+			if (Physics.CheckBox(collider.transform.position + collider.center, colliderSize * 0.5f, collider.transform.rotation, collisionLayerMask, QueryTriggerInteraction.Ignore))
+            {
+				validPlacement = false;
+			}
+		}
+
+		if (validPlacement)
+		{
+			IndicateValidPlacement(true);
+			GameEvents.BuildingPlacementChanged(true);
+		}
+		else
+		{
+			IndicateValidPlacement(false);
+			GameEvents.BuildingPlacementChanged(false);
+		}
+
+		rotateCoroutine = null;
+	}
 	#endregion
 }

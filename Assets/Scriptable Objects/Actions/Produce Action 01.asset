@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Produce Action 01
   m_EditorClassIdentifier: 
   Effect: Produce in 1 district.
+  ResearchCost: 1

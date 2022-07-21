@@ -10,9 +10,13 @@ public class ResearchPanel : MonoBehaviour
     #region Variable Declarations
     // Serialized Fields
     [SerializeField] TextMeshProUGUI effectTextmesh;
+    [SerializeField] GameObject technologySelectionPanel;
     [SerializeField] Button buttonAction;
     [SerializeField] Button buttonOkay;
     [SerializeField] Button buttonCancel;
+    [SerializeField] DieSetup currentDieSetup;
+    [SerializeField] DieSetup goldenDieSetup;
+    [SerializeField] Die goldenDie;
 
     // Private
     ResearchAction researchAction;
@@ -44,11 +48,12 @@ public class ResearchPanel : MonoBehaviour
         }
         catch (System.Exception)
         {
-            Debug.LogError("Tried to build with non-build action.");
+            Debug.LogError("Tried to research with non-research action.");
             throw;
         }
 
         effectTextmesh.text = researchAction.Effect;
+        technologySelectionPanel.SetActive(false);
         gameObject.SetActive(true);
 
         // Set up action button
@@ -59,6 +64,11 @@ public class ResearchPanel : MonoBehaviour
         buttonAction.onClick.RemoveAllListeners();
         buttonAction.onClick.AddListener(() =>
         {
+            effectTextmesh.text = "";
+            technologySelectionPanel.SetActive(true);
+            currentDieSetup.UpdateDieDisplay(die);
+            goldenDieSetup.UpdateDieDisplay(goldenDie);
+
             buttonAction.gameObject.SetActive(false);
             buttonOkay.gameObject.SetActive(true);
             buttonOkay.GetComponent<Image>().color = Color.grey;
@@ -71,6 +81,7 @@ public class ResearchPanel : MonoBehaviour
 
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
+                technologySelectionPanel.SetActive(false);
 
                 GameEvents.ActionCompleted(die, action, true);
             });
@@ -83,6 +94,7 @@ public class ResearchPanel : MonoBehaviour
 
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
+                technologySelectionPanel.SetActive(false);
 
                 GameEvents.ActionCompleted(die, action, false);
             });

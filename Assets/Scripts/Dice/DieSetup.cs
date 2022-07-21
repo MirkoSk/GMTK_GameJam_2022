@@ -29,7 +29,7 @@ public class DieSetup : MonoBehaviour
 	#region Unity Event Functions
 	private void Start () 
 	{
-		UpdateDieDisplay();
+		if (die != null) UpdateDieDisplay();
 	}
 	#endregion
 	
@@ -42,8 +42,10 @@ public class DieSetup : MonoBehaviour
 	
 	
 	#region Private Functions
-	void UpdateDieDisplay()
+	public void UpdateDieDisplay(Die newDie = null)
     {
+		if (newDie != null) die = newDie;
+
 		background.color = die.Color;
 		for (int i = 0; i < faces.Count; i++)
 		{

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Research Action 01
   m_EditorClassIdentifier: 
   Effect: Research 1 technology.
+  ResearchCost: 1

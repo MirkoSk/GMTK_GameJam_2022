@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Build Action 02
   m_EditorClassIdentifier: 
   Effect: 'Build 1:'
+  ResearchCost: 1
   Cost: 1
   Buildings:
   - {fileID: 8675066223685675490, guid: dd0aa71b8b0807742b2615a9357d8024, type: 3}

@@ -14,6 +14,7 @@ public class Action : ScriptableObject
 
 	#region Variable Declarations
 	public string Effect;
+	public int ResearchCost = 1;
 
 	protected ActionType type;
 	#endregion

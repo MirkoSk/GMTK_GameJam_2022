@@ -12,7 +12,7 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
 	// Private
 	GameObject building;
-	Die die;
+	DieColor dieColor;
 	GameObject draggable;
 	int buildingProductionValue;
     #endregion
@@ -34,7 +34,7 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 		RaycastHit hitInfo;
 		Physics.Raycast(positionRay, out hitInfo, 100f, raycastLayerMask);
 		draggable = Instantiate(building, hitInfo.point, Quaternion.identity);
-		draggable.GetComponent<Building>().Initialize(die, buildingProductionValue);
+		draggable.GetComponent<Building>().Initialize(dieColor, buildingProductionValue);
 		eventData.pointerDrag = draggable.GetComponentInChildren<BuildingDragger>().gameObject;
 	}
 
@@ -52,10 +52,10 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
 
 	#region Public Functions
-	public void Initialize(GameObject buildingPrefab, Die die, int productionValue)
+	public void Initialize(GameObject buildingPrefab, DieColor dieColor, int productionValue)
     {
 		building = buildingPrefab;
-		this.die = die;
+		this.dieColor = dieColor;
 		this.buildingProductionValue = productionValue;
     }
 	#endregion

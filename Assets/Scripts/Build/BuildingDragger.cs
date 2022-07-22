@@ -86,7 +86,7 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 				parent.transform.position = cell.transform.position;
 
 				District currentDistrict = GameManager.Instance.Districts.Find(x => x.ID == cell.DistrictID);
-				if (parent.Collisions.Count > 0 || (currentDistrict != null && currentDistrict.Die != null && currentDistrict.Die != parent.Die))
+				if (parent.Collisions.Count > 0 || (currentDistrict != null && currentDistrict.DieColor != null && currentDistrict.DieColor != parent.DieColor))
 				{
 					parent.IndicateValidPlacement(false);
 					GameEvents.BuildingPlacementChanged(false);

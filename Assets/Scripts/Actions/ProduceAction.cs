@@ -7,10 +7,9 @@ public class ProduceAction : Action
 {
 
 	#region Variable Declarations
-	// Serialized Fields
 
-	// Private
-
+	[Header("Produce")]
+	public DieColor Color;
 	#endregion
 
 
@@ -31,7 +30,7 @@ public class ProduceAction : Action
 
 
 	#region Public Functions
-	
+
 	#endregion
 
 

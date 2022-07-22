@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8abac839bb9924a8ee211f84a6e1f6, type: 3}
   m_Name: Die_Gold
   m_EditorClassIdentifier: 
-  Color: {r: 1, g: 0.9342736, b: 0, a: 1}
-  Material: {fileID: 0}
+  DieColor: {fileID: 11400000, guid: 733218b4668197f40b5204c81851f96e, type: 2}
   Faces:
   - {fileID: 0}
   - {fileID: 0}

@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Face")]
-public class Face : ScriptableObject
+[CreateAssetMenu(menuName = "Scriptable Objects/DieColor")]
+public class DieColor : ScriptableObject
 {
 
 	#region Variable Declarations
-	public Sprite Sprite;
-	public Action Action;
+	public string Name;
+	public Color Color;
+	public Material Material;
 	#endregion
 	
 	

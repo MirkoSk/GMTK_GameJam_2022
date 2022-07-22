@@ -14,7 +14,7 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	// Private
 	Image faceImage;
 	DieSetup dieSetup;
-	Face face;
+	Action action;
     #endregion
 
 
@@ -52,26 +52,26 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 
 	#region Public Functions
-	public void UpdateFace(Face face)
+	public void UpdateFace(Action action)
 	{
-		this.face = face;
+		this.action = action;
 
-		if (face == null)
+		if (action == null)
 		{
 			faceImage.color = new Color(1,1,1,0);
 		}
 		else
 		{
-			faceImage.sprite = face.Sprite;
-			faceImage.color = dieSetup.Die.Color;
+			faceImage.sprite = action.FaceSprite;
+			faceImage.color = dieSetup.Die.DieColor.Color;
 		}
 	}
 
 	public void UpdateDie()
     {
-		if (face == null) return;
+		if (action == null) return;
 
-		dieSetup.Die.Faces[dieSetup.DieSlots.IndexOf(this)] = face;
+		dieSetup.Die.Actions[dieSetup.DieSlots.IndexOf(this)] = action;
     }
 	#endregion
 

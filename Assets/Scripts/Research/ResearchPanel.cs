@@ -60,7 +60,20 @@ public class ResearchPanel : MonoBehaviour
 
         currentDie = die;
 
-        effectTextmesh.text = researchAction.Effect;
+        string effectString = researchAction.Effect;
+
+        string colorHex = "FFFFFF";
+        if (researchAction.Color == null) colorHex = ColorUtility.ToHtmlStringRGB(die.DieColor.Color);
+        else colorHex = ColorUtility.ToHtmlStringRGB(researchAction.Color.Color);
+
+        string colorName = "";
+        if (researchAction.Color == null) colorName = die.DieColor.Name;
+        else colorName = researchAction.Color.Name;
+
+        string colorString = "<color=#" + colorHex + ">" + colorName + "</color>";
+        effectString = effectString.Replace("$color", colorString);
+        effectTextmesh.text = effectString;
+
         technologySelectionPanel.SetActive(false);
         gameObject.SetActive(true);
 
@@ -74,7 +87,11 @@ public class ResearchPanel : MonoBehaviour
         {
             effectTextmesh.text = "";
             technologySelectionPanel.SetActive(true);
-            currentDieSetup.UpdateDieDisplay(die);
+
+            Die dieForResearch;
+            if (researchAction.Color == null) dieForResearch = die;
+            else dieForResearch = GameManager.Instance.DiceSet.Find(x => x.Die.DieColor == researchAction.Color).Die;
+            currentDieSetup.UpdateDieDisplay(dieForResearch);
             goldenDieSetup.UpdateDieDisplay(goldenDie);
 
             buttonAction.gameObject.SetActive(false);
@@ -109,25 +126,28 @@ public class ResearchPanel : MonoBehaviour
 	
 	
 	#region Private Functions
-	void HandleTechnologySelected(Face selectedFace, DieSlot dieSlot)
+	void HandleTechnologySelected(Action selectedAction, DieSlot dieSlot)
     {
-        buttonOkay.onClick.RemoveAllListeners();
-        buttonOkay.onClick.AddListener(() => 
+        if (GoldTracker.Instance.CurrentGold >= selectedAction.ResearchCost)
         {
-            GoldTracker.Instance.AddGold(-selectedFace.Action.ResearchCost);
-            GameManager.Instance.DiceSet.Find(x => x.Die == currentDie).ActionUsed = true;
+            buttonOkay.onClick.RemoveAllListeners();
+            buttonOkay.onClick.AddListener(() =>
+            {
+                GoldTracker.Instance.AddGold(-selectedAction.ResearchCost);
+                GameManager.Instance.DiceSet.Find(x => x.Die == currentDie).ActionUsed = true;
 
-            buttonOkay.gameObject.SetActive(false);
-            buttonCancel.gameObject.SetActive(false);
+                buttonOkay.gameObject.SetActive(false);
+                buttonCancel.gameObject.SetActive(false);
 
-            technologySelectionPanel.SetActive(false);
-            dieSlot.UpdateFace(selectedFace);
-            dieSlot.UpdateDie();
+                technologySelectionPanel.SetActive(false);
+                dieSlot.UpdateFace(selectedAction);
+                dieSlot.UpdateDie();
 
-            GameEvents.ActionCompleted(dieSlot.Die, researchAction, true);
-        });
-        buttonOkay.GetComponent<Image>().color = Color.white;
-        buttonOkay.enabled = true;
+                GameEvents.ActionCompleted(dieSlot.Die, researchAction, true);
+            });
+            buttonOkay.GetComponent<Image>().color = Color.white;
+            buttonOkay.enabled = true;
+        }
     }
     #endregion
 

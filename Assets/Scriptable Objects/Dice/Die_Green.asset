@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8abac839bb9924a8ee211f84a6e1f6, type: 3}
   m_Name: Die_Green
   m_EditorClassIdentifier: 
-  Color: {r: 0, g: 1, b: 0, a: 1}
-  Material: {fileID: 0}
-  Faces:
-  - {fileID: 11400000, guid: 6cc4cb1e7eba4754eade45a80faaff02, type: 2}
-  - {fileID: 11400000, guid: 3ecb7301af8f83446b0db14d7e9a0c2a, type: 2}
-  - {fileID: 11400000, guid: 74646465ffff7774ba3a93ca272cc91f, type: 2}
-  - {fileID: 11400000, guid: 74646465ffff7774ba3a93ca272cc91f, type: 2}
-  - {fileID: 11400000, guid: c830dd74a5a4ce5479ffe51d2f1b760f, type: 2}
-  - {fileID: 11400000, guid: c830dd74a5a4ce5479ffe51d2f1b760f, type: 2}
+  DieColor: {fileID: 11400000, guid: b25cbadeaba818d428e8b9a647944c89, type: 2}
+  Actions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   StartupDefault: {fileID: 11400000, guid: 9bfdbbf7345042449acd59127823e6f3, type: 2}

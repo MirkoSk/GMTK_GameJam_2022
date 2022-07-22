@@ -12,7 +12,7 @@ public class Building : MonoBehaviour
 	[SerializeField] LayerMask cellCheckLayerMask;
 	[SerializeField] LayerMask collisionLayerMask;
 
-	Die die;
+	DieColor dieColor;
 	int productionValue;
 	District currentDistrict;
 	List<Collider> collisions = new List<Collider>();
@@ -24,7 +24,7 @@ public class Building : MonoBehaviour
 
 	#region Public Properties
 	public Sprite Shape { get => shape; }
-	public Die Die { get => die; }
+	public DieColor DieColor { get => dieColor; }
 	public List<Collider> Collisions { get => collisions; }
     #endregion
 
@@ -57,14 +57,14 @@ public class Building : MonoBehaviour
 
 
 	#region Public Functions
-	public void Initialize(Die die, int productionValue)
+	public void Initialize(DieColor dieColor, int productionValue)
     {
-		this.die = die;
+		this.dieColor = dieColor;
 		this.productionValue = productionValue;
 		Renderer[] renderers = transform.GetComponentsInChildren<Renderer>();
         for (int i = 0; i < renderers.Length; i++)
         {
-			renderers[i].material.color = die.Color;
+			renderers[i].material.color = dieColor.Color;
         }
     }
 
@@ -97,11 +97,11 @@ public class Building : MonoBehaviour
             {
 				if (currentDistrict == null)
                 {
-					currentDistrict = new District(districtID, die);
+					currentDistrict = new District(districtID, dieColor);
 				}
 				else
 				{
-					currentDistrict.Die = die;
+					currentDistrict.DieColor = dieColor;
 					currentDistrict.ID = districtID;
 				}
 			}
@@ -117,7 +117,7 @@ public class Building : MonoBehaviour
 		if (buildingPlaced) return;
 
 		District gmDistrict = GameManager.Instance.Districts.Find(x => x.ID == currentDistrict.ID);
-		if (gmDistrict.Die == null) gmDistrict.Die = die;
+		if (gmDistrict.DieColor == null) gmDistrict.DieColor = die.DieColor;
 		gmDistrict.ProductionValue += productionValue;
 		buildingPlaced = true;
 

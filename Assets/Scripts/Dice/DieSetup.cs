@@ -48,10 +48,10 @@ public class DieSetup : MonoBehaviour
 	{
 		if (newDie != null) die = newDie;
 
-		background.color = die.Color;
+		background.color = die.DieColor.Color;
 		for (int i = 0; i < dieSlots.Count; i++)
 		{
-			dieSlots[i].UpdateFace(die.Faces[i]);
+			dieSlots[i].UpdateFace(die.Actions[i]);
 		}
 	}
 	#endregion

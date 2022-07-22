@@ -13,6 +13,8 @@ public class Action : ScriptableObject
 {
 
 	#region Variable Declarations
+	[Space]
+	public Sprite FaceSprite;
 	public string Effect;
 	public int ResearchCost = 1;
 

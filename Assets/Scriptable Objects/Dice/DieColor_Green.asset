@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 189ae57d9f795844ba249ad145f84c40, type: 3}
-  m_Name: Research 01
+  m_Script: {fileID: 11500000, guid: 555324565d67e3745860eb167a54691c, type: 3}
+  m_Name: DieColor_Green
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 89a4ea711c09cfc43a3de9c115fd9525, type: 3}
-  Action: {fileID: 11400000, guid: 8e69e2b5c57012f4389f7cb09cc43291, type: 2}
+  Color: {r: 0, g: 1, b: 0, a: 1}
+  Name: green

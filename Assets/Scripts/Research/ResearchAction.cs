@@ -7,10 +7,7 @@ public class ResearchAction : Action
 {
 
 	#region Variable Declarations
-	// Serialized Fields
-
-	// Private
-
+	public DieColor Color;
 	#endregion
 
 

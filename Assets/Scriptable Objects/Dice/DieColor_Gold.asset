@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 189ae57d9f795844ba249ad145f84c40, type: 3}
-  m_Name: Build 02
+  m_Script: {fileID: 11500000, guid: 555324565d67e3745860eb167a54691c, type: 3}
+  m_Name: DieColor_Gold
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 47740e4d4319acd4490b413a79d84bb6, type: 3}
-  Action: {fileID: 11400000, guid: 0f28d478409d9904d8f71ef136997ebd, type: 2}
+  Name: golden
+  Color: {r: 1, g: 1, b: 0, a: 1}
+  Material: {fileID: 0}

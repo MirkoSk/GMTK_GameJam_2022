@@ -11,7 +11,7 @@ public class TechnologySelector : MonoBehaviour
     [SerializeField] TechnologyVisualizer upgradeTech;
 
     [Space]
-    [SerializeField] List<Face> researchableFaces = new List<Face>();
+    [SerializeField] List<Action> researchableActions = new List<Action>();
 
     // Private
 
@@ -61,7 +61,7 @@ public class TechnologySelector : MonoBehaviour
 
         for (int i = 0; i < technologies.Count; i++)
         {
-            technologies[i].Initialize(researchableFaces[Random.Range(0, researchableFaces.Count)]);
+            technologies[i].Initialize(researchableActions[Random.Range(0, researchableActions.Count)]);
         }
     }
     #endregion

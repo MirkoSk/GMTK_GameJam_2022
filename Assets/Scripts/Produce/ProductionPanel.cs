@@ -56,7 +56,20 @@ public class ProductionPanel : MonoBehaviour
             throw;
         }
 
-        effectTextmesh.text = produceAction.Effect;
+        string effectString = produceAction.Effect;
+
+        string colorHex = "FFFFFF";
+        if (produceAction.Color == null) colorHex = ColorUtility.ToHtmlStringRGB(die.DieColor.Color);
+        else colorHex = ColorUtility.ToHtmlStringRGB(produceAction.Color.Color);
+
+        string colorName = "";
+        if (produceAction.Color == null) colorName = die.DieColor.Name;
+        else colorName = produceAction.Color.Name;
+
+        string colorString = "<color=#" + colorHex + ">" + colorName + "</color>";
+        effectString = effectString.Replace("$color", colorString);
+        effectTextmesh.text = effectString;
+
         gameObject.SetActive(true);
 
         // Set up buttons
@@ -85,7 +98,8 @@ public class ProductionPanel : MonoBehaviour
             GameEvents.ActionCompleted(die, action, false);
         });
 
-        districtSelector.Initialize(die);
+        if (produceAction.Color == null) districtSelector.Initialize(die.DieColor);
+        else districtSelector.Initialize(produceAction.Color);
     }
 
 	public void Deactivate()

@@ -6,7 +6,7 @@ using UnityEngine;
 public class DieState
 {
 	public Die Die;
-	public Face CurrentFaceUp;
+	public Action CurrentAction;
 	public bool ActionUsed;
 }
 
@@ -14,7 +14,7 @@ public class DieState
 public class District
 {
 	public int ID;
-	public Die Die;
+	public DieColor DieColor;
 	public int ProductionValue;
 	public List<Cell> Cells = new List<Cell>();
 
@@ -23,11 +23,10 @@ public class District
 		ID = id;
 	}
 
-	public District(int id, Die die/*, int productionValue*/)
+	public District(int id, DieColor dieColor)
     {
 		ID = id;
-		Die = die;
-		//ProductionValue = productionValue;
+		DieColor = dieColor;
     }
 }
 
@@ -54,9 +53,9 @@ public class GameManager : MonoBehaviour
 		{
 			Die goldenDie = diceSet.Find(x => x.Die.name.Contains("Gold")).Die;
 			bool goldenDieComplete = true;
-            for (int i = 0; i < goldenDie.Faces.Length; i++)
+            for (int i = 0; i < goldenDie.Actions.Length; i++)
             {
-				if (goldenDie.Faces[i] == null) goldenDieComplete = false;
+				if (goldenDie.Actions[i] == null) goldenDieComplete = false;
             }
 			return goldenDieComplete;
 		}
@@ -127,14 +126,14 @@ public class GameManager : MonoBehaviour
 
 		diceSet.ForEach((dieState) =>
 		{
-			if (dieState.CurrentFaceUp != null && !dieState.ActionUsed) allDiceActionsUsed = false;
+			if (dieState.CurrentAction != null && !dieState.ActionUsed) allDiceActionsUsed = false;
 		});
 
 		if (allDiceActionsUsed)
         {
 			diceSet.ForEach((dieState) => 
 			{
-				dieState.CurrentFaceUp = null;
+				dieState.CurrentAction = null;
 				dieState.ActionUsed = false; 
 			});
 			GameEvents.NewTurn();

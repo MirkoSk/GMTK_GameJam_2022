@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8abac839bb9924a8ee211f84a6e1f6, type: 3}
   m_Name: Die_Blue
   m_EditorClassIdentifier: 
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Material: {fileID: 0}
-  Faces:
-  - {fileID: 11400000, guid: 6cc4cb1e7eba4754eade45a80faaff02, type: 2}
-  - {fileID: 11400000, guid: 3ecb7301af8f83446b0db14d7e9a0c2a, type: 2}
-  - {fileID: 11400000, guid: c830dd74a5a4ce5479ffe51d2f1b760f, type: 2}
-  - {fileID: 11400000, guid: c830dd74a5a4ce5479ffe51d2f1b760f, type: 2}
-  - {fileID: 11400000, guid: c830dd74a5a4ce5479ffe51d2f1b760f, type: 2}
-  - {fileID: 11400000, guid: c830dd74a5a4ce5479ffe51d2f1b760f, type: 2}
+  DieColor: {fileID: 11400000, guid: 0db707582d742c14eb2588bf92a66143, type: 2}
+  Actions:
+  - {fileID: 11400000, guid: e191405b777cfc84889c3bb6ea5bc2a8, type: 2}
+  - {fileID: 11400000, guid: e191405b777cfc84889c3bb6ea5bc2a8, type: 2}
+  - {fileID: 11400000, guid: 42f70a1c2e232d34eab09620b471d2ad, type: 2}
+  - {fileID: 11400000, guid: 42f70a1c2e232d34eab09620b471d2ad, type: 2}
+  - {fileID: 11400000, guid: e2f8fa1ceaf49b14e8e8fa9e6c7958ec, type: 2}
+  - {fileID: 11400000, guid: e2f8fa1ceaf49b14e8e8fa9e6c7958ec, type: 2}
   StartupDefault: {fileID: 11400000, guid: 9bfdbbf7345042449acd59127823e6f3, type: 2}

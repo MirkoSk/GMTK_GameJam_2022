@@ -6,10 +6,9 @@ using UnityEngine;
 public class Die : ScriptableObject
 {
 
-	#region Variable Declarations
-	public Color Color;
-	public Material Material;
-	public Face[] Faces = new Face[6];
+    #region Variable Declarations
+    public DieColor DieColor;
+	public Action[] Actions = new Action[6];
     public Die StartupDefault;
     #endregion
 
@@ -26,9 +25,9 @@ public class Die : ScriptableObject
     {
         if (StartupDefault)
         {
-            for (int i = 0; i < Faces.Length; i++)
+            for (int i = 0; i < Actions.Length; i++)
             {
-                Faces[i] = StartupDefault.Faces[i];
+                Actions[i] = StartupDefault.Actions[i];
             }
         }
     }

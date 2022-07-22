@@ -189,9 +189,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceImage: {fileID: 8331328905134381341}
   costTextmesh: {fileID: 185949216785615253}
-  layerMaskUI:
-    serializedVersion: 2
-    m_Bits: 32
 --- !u!1 &2004834429184222004
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,19 +386,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7259898386873664346}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1868340797896802312}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8331328905134381343
 GameObject:
   m_ObjectHideFlags: 0

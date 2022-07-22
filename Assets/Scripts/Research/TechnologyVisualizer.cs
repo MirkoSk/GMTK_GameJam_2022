@@ -14,8 +14,10 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 	[SerializeField] TextMeshProUGUI costTextmesh;
 
 	// Private
-	Face face;
+	bool active;
+	Action action;
 	DieSlot selectedSlot;
+	Vector3 originalPosition;
 	Vector3 lastPosition;
     #endregion
 
@@ -28,8 +30,27 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 
     #region Unity Event Functions
+    private void Awake()
+    {
+		originalPosition = faceImage.transform.position;
+    }
+
+    private void OnEnable()
+    {
+		GameEvents.OnTechnologySelected += HandleTechnologySelected;
+		faceImage.transform.position = originalPosition;
+		active = true;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnTechnologySelected -= HandleTechnologySelected;
+	}
+
     public void OnBeginDrag(PointerEventData eventData)
 	{
+		if (!active) return;
+
 		lastPosition = faceImage.transform.position;
 		selectedSlot = null;
 		faceImage.raycastTarget = false;
@@ -37,17 +58,21 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 	public void OnDrag(PointerEventData eventData)
 	{
+		if (!active) return;
+
 		faceImage.transform.position = eventData.position;
     }
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
+		if (!active) return;
+
 		if (selectedSlot != null)
         {
 			faceImage.transform.position = selectedSlot.transform.position;
 			lastPosition = faceImage.transform.position;
 
-			GameEvents.TechnologySelected(face, selectedSlot);
+			GameEvents.TechnologySelected(action, selectedSlot);
 		}
 		else
         {
@@ -61,11 +86,11 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 
 	#region Public Functions
-	public void Initialize(Face face)
+	public void Initialize(Action action)
     {
-		this.face = face;
-		faceImage.sprite = face.Sprite;
-		costTextmesh.text = face.Action.ResearchCost.ToString();
+		this.action = action;
+		faceImage.sprite = action.FaceSprite;
+		costTextmesh.text = action.ResearchCost.ToString();
     }
 
 	public void UpdateSelectedSlot(DieSlot dieSlot)
@@ -77,12 +102,16 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 	
 	
 	#region Private Functions
-	
+	void HandleTechnologySelected(Action researchedAction, DieSlot dieSlot)
+    {
+		// Another technology has been selected
+		if (researchedAction != action && dieSlot != selectedSlot) active = false;
+    }
 	#endregion
-	
-	
-	
+
+
+
 	#region Coroutines
-	
+
 	#endregion
 }

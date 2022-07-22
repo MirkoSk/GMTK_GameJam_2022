@@ -11,7 +11,7 @@ public class DistrictSelector : MonoBehaviour
 
     // Private
     bool active;
-    Die actionDie;
+    DieColor dieColor;
     int currentlyMousOveredDistrict;
     int currentlySelectedDistrict;
     #endregion
@@ -47,7 +47,7 @@ public class DistrictSelector : MonoBehaviour
                 if (cell.DistrictID != 0)
                 {
                     District district = GameManager.Instance.Districts.Find(x => x.ID == cell.DistrictID);
-                    if (district.Die != null && district.Die == actionDie)
+                    if (district.DieColor != null && district.DieColor == dieColor)
                     {
                         ShowMouseOverOutlinesOfDistrict(district);
                         currentlyMousOveredDistrict = district.ID;
@@ -90,9 +90,9 @@ public class DistrictSelector : MonoBehaviour
 
 
     #region Public Functions
-    public void Initialize(Die actionDie)
+    public void Initialize(DieColor dieColor)
     {
-        this.actionDie = actionDie;
+        this.dieColor = dieColor;
         active = true;
     }
     #endregion
@@ -113,7 +113,7 @@ public class DistrictSelector : MonoBehaviour
     {
         district.Cells.ForEach((cell) =>
         {
-            cell.ToggleOutlinesMouseOver(true, district.Die.Color);
+            cell.ToggleOutlinesMouseOver(true, district.DieColor.Color);
         });
     }
 
@@ -130,7 +130,7 @@ public class DistrictSelector : MonoBehaviour
     {
         district.Cells.ForEach((cell) =>
         {
-            cell.ToggleOutlinesSelected(true, district.Die.Color);
+            cell.ToggleOutlinesSelected(true, district.DieColor.Color);
         });
     }
     #endregion

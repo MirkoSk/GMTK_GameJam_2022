@@ -63,12 +63,12 @@ public class ResearchPanel : MonoBehaviour
         string effectString = researchAction.Effect;
 
         string colorHex = "FFFFFF";
-        if (researchAction.Color == null) colorHex = ColorUtility.ToHtmlStringRGB(die.DieColor.Color);
-        else colorHex = ColorUtility.ToHtmlStringRGB(researchAction.Color.Color);
+        if (researchAction.DieColor == null) colorHex = ColorUtility.ToHtmlStringRGB(die.DieColor.Color);
+        else colorHex = ColorUtility.ToHtmlStringRGB(researchAction.DieColor.Color);
 
         string colorName = "";
-        if (researchAction.Color == null) colorName = die.DieColor.Name;
-        else colorName = researchAction.Color.Name;
+        if (researchAction.DieColor == null) colorName = die.DieColor.Name;
+        else colorName = researchAction.DieColor.Name;
 
         string colorString = "<color=#" + colorHex + ">" + colorName + "</color>";
         effectString = effectString.Replace("$color", colorString);
@@ -89,8 +89,8 @@ public class ResearchPanel : MonoBehaviour
             technologySelectionPanel.SetActive(true);
 
             Die dieForResearch;
-            if (researchAction.Color == null) dieForResearch = die;
-            else dieForResearch = GameManager.Instance.DiceSet.Find(x => x.Die.DieColor == researchAction.Color).Die;
+            if (researchAction.DieColor == null) dieForResearch = die;
+            else dieForResearch = GameManager.Instance.DiceSet.Find(x => x.Die.DieColor == researchAction.DieColor).Die;
             currentDieSetup.UpdateDieDisplay(dieForResearch);
             goldenDieSetup.UpdateDieDisplay(goldenDie);
 

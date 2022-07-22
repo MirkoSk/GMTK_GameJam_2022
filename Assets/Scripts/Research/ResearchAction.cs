@@ -7,7 +7,7 @@ public class ResearchAction : Action
 {
 
 	#region Variable Declarations
-	public DieColor Color;
+	public DieColor DieColor;
 	#endregion
 
 

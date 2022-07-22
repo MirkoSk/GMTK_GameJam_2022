@@ -83,7 +83,9 @@ public class RolledDieVisualizer : MonoBehaviour
 	void ActivateDie()
     {
 		border.color = die.DieColor.Color;
-		face.color = die.DieColor.Color;
+		if (currentAction.Type == ActionType.Produce && (currentAction as ProduceAction).DieColor != null) face.color = (currentAction as ProduceAction).DieColor.Color;
+		else if (currentAction.Type == ActionType.Research && (currentAction as ResearchAction).DieColor != null) face.color = (currentAction as ResearchAction).DieColor.Color;
+		else face.color = die.DieColor.Color;
 		button.enabled = true;
 	}
 

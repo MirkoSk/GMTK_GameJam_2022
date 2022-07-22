@@ -59,12 +59,12 @@ public class ProductionPanel : MonoBehaviour
         string effectString = produceAction.Effect;
 
         string colorHex = "FFFFFF";
-        if (produceAction.Color == null) colorHex = ColorUtility.ToHtmlStringRGB(die.DieColor.Color);
-        else colorHex = ColorUtility.ToHtmlStringRGB(produceAction.Color.Color);
+        if (produceAction.DieColor == null) colorHex = ColorUtility.ToHtmlStringRGB(die.DieColor.Color);
+        else colorHex = ColorUtility.ToHtmlStringRGB(produceAction.DieColor.Color);
 
         string colorName = "";
-        if (produceAction.Color == null) colorName = die.DieColor.Name;
-        else colorName = produceAction.Color.Name;
+        if (produceAction.DieColor == null) colorName = die.DieColor.Name;
+        else colorName = produceAction.DieColor.Name;
 
         string colorString = "<color=#" + colorHex + ">" + colorName + "</color>";
         effectString = effectString.Replace("$color", colorString);
@@ -98,8 +98,8 @@ public class ProductionPanel : MonoBehaviour
             GameEvents.ActionCompleted(die, action, false);
         });
 
-        if (produceAction.Color == null) districtSelector.Initialize(die.DieColor);
-        else districtSelector.Initialize(produceAction.Color);
+        if (produceAction.DieColor == null) districtSelector.Initialize(die.DieColor);
+        else districtSelector.Initialize(produceAction.DieColor);
     }
 
 	public void Deactivate()

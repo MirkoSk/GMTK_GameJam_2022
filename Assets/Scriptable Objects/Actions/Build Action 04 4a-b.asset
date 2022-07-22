@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad4e84abfec47948b3397a89f3ddf0b, type: 3}
   m_Name: Build Action 04 4a-b
   m_EditorClassIdentifier: 
-  FaceSprite: {fileID: 21300000, guid: 47740e4d4319acd4490b413a79d84bb6, type: 3}
+  FaceSprite: {fileID: 21300000, guid: 9e574d698e12c9e47b56139a00c50c0c, type: 3}
   Effect: 'Build 1:'
   ResearchCost: 2
   Cost: 1

@@ -58,12 +58,16 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 		if (action == null)
 		{
+			faceImage.sprite = null;
 			faceImage.color = new Color(1,1,1,0);
 		}
 		else
 		{
 			faceImage.sprite = action.FaceSprite;
-			faceImage.color = dieSetup.Die.DieColor.Color;
+
+			if (action.Type == ActionType.Produce && (action as ProduceAction).DieColor != null) faceImage.color = (action as ProduceAction).DieColor.Color;
+			else if (action.Type == ActionType.Research && (action as ResearchAction).DieColor != null) faceImage.color = (action as ResearchAction).DieColor.Color;
+			else faceImage.color = Die.DieColor.Color;
 		}
 	}
 

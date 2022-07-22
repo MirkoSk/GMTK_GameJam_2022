@@ -9,7 +9,7 @@ public class ProduceAction : Action
 	#region Variable Declarations
 
 	[Header("Produce")]
-	public DieColor Color;
+	public DieColor DieColor;
 	#endregion
 
 

@@ -116,6 +116,8 @@ public class Building : MonoBehaviour
     {
 		if (buildingPlaced) return;
 
+		if (!success) Destroy(gameObject);
+
 		District gmDistrict = GameManager.Instance.Districts.Find(x => x.ID == currentDistrict.ID);
 		if (gmDistrict.DieColor == null) gmDistrict.DieColor = die.DieColor;
 		gmDistrict.ProductionValue += productionValue;

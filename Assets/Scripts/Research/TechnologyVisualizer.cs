@@ -90,6 +90,9 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
     {
 		this.action = action;
 		faceImage.sprite = action.FaceSprite;
+		if (action.Type == ActionType.Produce && (action as ProduceAction).DieColor != null) faceImage.color = (action as ProduceAction).DieColor.Color;
+		else if (action.Type == ActionType.Research && (action as ResearchAction).DieColor != null) faceImage.color = (action as ResearchAction).DieColor.Color;
+		else faceImage.color = Color.white;
 		costTextmesh.text = action.ResearchCost.ToString();
     }
 

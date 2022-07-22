@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FaceSprite: {fileID: 21300000, guid: 390df3b9f44b352498da728061799efe, type: 3}
   Effect: Produce in 1 $color district.
-  ResearchCost: 1
-  Color: {fileID: 11400000, guid: 6325be40e63a22d4e941182da9efbc0d, type: 2}
+  ResearchCost: 2
+  DieColor: {fileID: 11400000, guid: 6325be40e63a22d4e941182da9efbc0d, type: 2}

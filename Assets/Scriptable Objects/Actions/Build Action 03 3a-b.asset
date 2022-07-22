@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ad4e84abfec47948b3397a89f3ddf0b, type: 3}
-  m_Name: Build Action 02
+  m_Name: Build Action 03 3a-b
   m_EditorClassIdentifier: 
   FaceSprite: {fileID: 21300000, guid: 47740e4d4319acd4490b413a79d84bb6, type: 3}
   Effect: 'Build 1:'
-  ResearchCost: 1
+  ResearchCost: 3
   Cost: 1
   Buildings:
-  - {fileID: 8675066223685675490, guid: dd0aa71b8b0807742b2615a9357d8024, type: 3}
-  Production: 2
+  - {fileID: 8675066223685675490, guid: dbd674358eb9f364ab908c93e12a4fe5, type: 3}
+  - {fileID: 8675066223685675490, guid: 3dbd59fcb7c474a4b8546f533afb11bc, type: 3}
+  Production: 1

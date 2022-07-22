@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 110069b4daa27684e9808df6201abab0, type: 3}
-  m_Name: Produce Action 02
+  m_Script: {fileID: 11500000, guid: 1ff336234cafca546922935bacebe93a, type: 3}
+  m_Name: Research Action 02 Red
   m_EditorClassIdentifier: 
-  FaceSprite: {fileID: 21300000, guid: 390df3b9f44b352498da728061799efe, type: 3}
-  Effect: Produce in 1 $color district.
+  FaceSprite: {fileID: 21300000, guid: 89a4ea711c09cfc43a3de9c115fd9525, type: 3}
+  Effect: Research 1 $color technology.
   ResearchCost: 1
   Color: {fileID: 11400000, guid: 6325be40e63a22d4e941182da9efbc0d, type: 2}

@@ -67,4 +67,13 @@ public static class GameEvents
 		Debug.Log("[GAME_EVENT] OnDistrictSelectionChanged. Selected district id: " + districtID);
 		OnDistrictSelectionChanged?.Invoke(district);
 	}
+
+	// Research
+	public delegate void TechnologySelectionHandler(Face researchedFace, DieSlot dieSlot);
+	public static event TechnologySelectionHandler OnTechnologySelected;
+	public static void TechnologySelected(Face researchedFace, DieSlot dieSlot)
+    {
+		Debug.Log("[GAME_EVENT] OnTechnologySelected: " + researchedFace + " on die " + dieSlot.Die);
+		OnTechnologySelected?.Invoke(researchedFace, dieSlot);
+	}
 }

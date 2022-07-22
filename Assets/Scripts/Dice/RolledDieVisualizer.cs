@@ -44,7 +44,7 @@ public class RolledDieVisualizer : MonoBehaviour
 		GameEvents.OnActionCompleted += UpdateDieVisuals;
 
 		// Show golden die?
-		if (GameManager.Instance.DiceSet[GameManager.Instance.DiceSet.Count - 1].Die == die && !GameManager.Instance.GoldenDieComplete)
+		if (GameManager.Instance.DiceSet.Find(x => x.Die.name.Contains("Gold")).Die == die && !GameManager.Instance.GoldenDieComplete)
         {
 			gameObject.SetActive(false);
 			return;

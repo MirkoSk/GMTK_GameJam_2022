@@ -59,6 +59,10 @@ public class DiceRoller : MonoBehaviour
     {
 		buttonRoll.SetActive(false);
 		diceLayout.SetActive(true);
+        for (int i = 0; i < diceLayout.transform.childCount; i++)
+        {
+            diceLayout.transform.GetChild(i).gameObject.SetActive(true);
+        }
     }
 
     void ShowRerollButton()

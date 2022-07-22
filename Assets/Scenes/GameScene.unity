@@ -16935,7 +16935,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 47.9}
+  m_AnchoredPosition: {x: 0, y: 0.0000076293945}
   m_SizeDelta: {x: 350, y: 133.6797}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1185085677
@@ -28921,6 +28921,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TechnologyUI (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868340797896802312, guid: 2f63544957fe90746bcec03ecff9be7e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4257443328330940361, guid: 2f63544957fe90746bcec03ecff9be7e,
         type: 3}

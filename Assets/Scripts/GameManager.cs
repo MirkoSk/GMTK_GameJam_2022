@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
 	[SerializeField] List<DieState> diceSet = new List<DieState>();
 
 	// Private
-	bool goldenDieComplete;
 	List<District> districts = new List<District>();
 	#endregion
 	
@@ -49,7 +48,19 @@ public class GameManager : MonoBehaviour
 	
 	#region Public Properties
 	public List<DieState> DiceSet { get => diceSet; }
-	public bool GoldenDieComplete { get => goldenDieComplete; }
+	public bool GoldenDieComplete
+	{
+		get
+		{
+			Die goldenDie = diceSet.Find(x => x.Die.name.Contains("Gold")).Die;
+			bool goldenDieComplete = true;
+            for (int i = 0; i < goldenDie.Faces.Length; i++)
+            {
+				if (goldenDie.Faces[i] == null) goldenDieComplete = false;
+            }
+			return goldenDieComplete;
+		}
+	}
 	public List<District> Districts { get => districts; }
 	#endregion
 	

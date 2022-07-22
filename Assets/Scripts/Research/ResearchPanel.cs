@@ -20,27 +20,33 @@ public class ResearchPanel : MonoBehaviour
 
     // Private
     ResearchAction researchAction;
-	#endregion
-	
-	
-	
-	#region Public Properties
-	
-	#endregion
-	
-	
-	
-	#region Unity Event Functions
-	private void Start () 
-	{
-		
-	}
-	#endregion
-	
-	
-	
-	#region Public Functions
-	public void Activate(Die die, Action action)
+    Die currentDie;
+    #endregion
+
+
+
+    #region Public Properties
+
+    #endregion
+
+
+
+    #region Unity Event Functions
+    private void OnEnable()
+    {
+        GameEvents.OnTechnologySelected += HandleTechnologySelected;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnTechnologySelected -= HandleTechnologySelected;
+    }
+    #endregion
+
+
+
+    #region Public Functions
+    public void Activate(Die die, Action action)
     {
         try
         {
@@ -51,6 +57,8 @@ public class ResearchPanel : MonoBehaviour
             Debug.LogError("Tried to research with non-research action.");
             throw;
         }
+
+        currentDie = die;
 
         effectTextmesh.text = researchAction.Effect;
         technologySelectionPanel.SetActive(false);
@@ -74,17 +82,6 @@ public class ResearchPanel : MonoBehaviour
             buttonOkay.GetComponent<Image>().color = Color.grey;
             buttonOkay.enabled = false;
             buttonOkay.onClick.RemoveAllListeners();
-            buttonOkay.onClick.AddListener(() =>
-            {
-                GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
-                // TODO: Execute effect of research action
-
-                buttonOkay.gameObject.SetActive(false);
-                buttonCancel.gameObject.SetActive(false);
-                technologySelectionPanel.SetActive(false);
-
-                GameEvents.ActionCompleted(die, action, true);
-            });
             
             buttonCancel.gameObject.SetActive(true);
             buttonCancel.onClick.RemoveAllListeners();
@@ -112,12 +109,31 @@ public class ResearchPanel : MonoBehaviour
 	
 	
 	#region Private Functions
-	
-	#endregion
-	
-	
-	
-	#region Coroutines
-	
-	#endregion
+	void HandleTechnologySelected(Face selectedFace, DieSlot dieSlot)
+    {
+        buttonOkay.onClick.RemoveAllListeners();
+        buttonOkay.onClick.AddListener(() => 
+        {
+            GoldTracker.Instance.AddGold(-selectedFace.Action.ResearchCost);
+            GameManager.Instance.DiceSet.Find(x => x.Die == currentDie).ActionUsed = true;
+
+            buttonOkay.gameObject.SetActive(false);
+            buttonCancel.gameObject.SetActive(false);
+
+            technologySelectionPanel.SetActive(false);
+            dieSlot.UpdateFace(selectedFace);
+            dieSlot.UpdateDie();
+
+            GameEvents.ActionCompleted(dieSlot.Die, researchAction, true);
+        });
+        buttonOkay.GetComponent<Image>().color = Color.white;
+        buttonOkay.enabled = true;
+    }
+    #endregion
+
+
+
+    #region Coroutines
+
+    #endregion
 }

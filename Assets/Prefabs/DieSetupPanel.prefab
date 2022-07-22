@@ -492,13 +492,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   die: {fileID: 0}
   background: {fileID: 6939710196546715310}
-  faces:
-  - {fileID: 4303844609595283329}
-  - {fileID: 5409675675591842219}
-  - {fileID: 1621890824093382577}
-  - {fileID: 7291851881633933783}
-  - {fileID: 446651249098994335}
-  - {fileID: 3931984642646547480}
+  dieSlots:
+  - {fileID: 1767310340587367751}
+  - {fileID: 183118485581485271}
+  - {fileID: 8193364595646454100}
+  - {fileID: 2923424430542470190}
+  - {fileID: 190086279712814351}
+  - {fileID: 7090683940247905495}
 --- !u!222 &5585946134984208580
 CanvasRenderer:
   m_ObjectHideFlags: 0

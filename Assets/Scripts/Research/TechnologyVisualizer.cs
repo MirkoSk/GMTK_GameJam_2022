@@ -15,8 +15,8 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 	// Private
 	Face face;
-	Vector3 dropOffLocation;
-	Vector3 originalPosition;
+	DieSlot selectedSlot;
+	Vector3 lastPosition;
     #endregion
 
 
@@ -30,8 +30,8 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
     #region Unity Event Functions
     public void OnBeginDrag(PointerEventData eventData)
 	{
-		originalPosition = faceImage.transform.position;
-		dropOffLocation = Vector3.zero;
+		lastPosition = faceImage.transform.position;
+		selectedSlot = null;
 		faceImage.raycastTarget = false;
 	}
 
@@ -42,8 +42,17 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		if (dropOffLocation != Vector3.zero) faceImage.transform.position = dropOffLocation;
-		else faceImage.transform.position = originalPosition;
+		if (selectedSlot != null)
+        {
+			faceImage.transform.position = selectedSlot.transform.position;
+			lastPosition = faceImage.transform.position;
+
+			GameEvents.TechnologySelected(face, selectedSlot);
+		}
+		else
+        {
+			faceImage.transform.position = lastPosition;
+		}
 
 		faceImage.raycastTarget = true;
 	}
@@ -59,9 +68,9 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 		costTextmesh.text = face.Action.ResearchCost.ToString();
     }
 
-	public void UpdateDropOffLocation(Vector3 position)
+	public void UpdateSelectedSlot(DieSlot dieSlot)
     {
-		dropOffLocation = position;
+		selectedSlot = dieSlot;
     }
 	#endregion
 	

@@ -12,12 +12,14 @@ public class BuildPanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI effectTextmesh;
     [SerializeField] TextMeshProUGUI costTextmesh;
     [SerializeField] List<Image> shapes = new List<Image>();
+    [SerializeField] GameObject colorSelectionButtons;
     [SerializeField] Button buttonAction;
     [SerializeField] Button buttonOkay;
     [SerializeField] Button buttonCancel;
 
     // Private
     BuildAction buildAction;
+    DieColor buildColor;
     #endregion
 
 
@@ -57,30 +59,34 @@ public class BuildPanel : MonoBehaviour
         
         effectTextmesh.text = buildAction.Effect;
         costTextmesh.text = buildAction.Cost.ToString();
-        for (int i = 0; i < shapes.Count; i++)
-        {
-            if (i < buildAction.Buildings.Count)
-            {
-                shapes[i].sprite = buildAction.Buildings[i].GetComponent<Building>().Shape;
-                shapes[i].color = die.DieColor.Color;
-                shapes[i].enabled = true;
-                shapes[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                shapes[i].gameObject.SetActive(false);
-            }
-        }
+        InitializeShapes(die.DieColor.Color);
+        
         gameObject.SetActive(true);
 
-        // Set up action button
+        // Set up buttons
         buttonAction.GetComponentInChildren<TextMeshProUGUI>().text = "Build";
-        buttonAction.GetComponent<Image>().color = Color.white;
-        buttonAction.enabled = true;
+
+        if (die.DieColor.Joker)
+        {
+            buttonAction.GetComponent<Image>().color = Color.grey;
+            buttonAction.enabled = false;
+
+            colorSelectionButtons.SetActive(true);
+        }
+        else
+        {
+            buttonAction.GetComponent<Image>().color = Color.white;
+            buttonAction.enabled = true;
+
+            colorSelectionButtons.SetActive(false);
+            buildColor = die.DieColor;
+        }
+        
         buttonAction.onClick.RemoveAllListeners();
         buttonAction.onClick.AddListener(() => 
         {
             buttonAction.gameObject.SetActive(false);
+            colorSelectionButtons.SetActive(false);
             buttonOkay.gameObject.SetActive(true);
             buttonOkay.GetComponent<Image>().color = Color.grey;
             buttonOkay.enabled = false;
@@ -106,7 +112,7 @@ public class BuildPanel : MonoBehaviour
                 
                 GameEvents.ActionCompleted(die, action, false); 
             });
-            SelectBuilding(buildAction, die);
+            SelectBuilding(buildAction, buildColor);
             GameEvents.ActionConfirmed(die, action);
         });
         buttonAction.gameObject.SetActive(true);
@@ -116,12 +122,20 @@ public class BuildPanel : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public void SelectBuildColor(DieColor dieColor)
+    {
+        buildColor = dieColor;
+        InitializeShapes(dieColor.Color);
+        buttonAction.GetComponent<Image>().color = Color.white;
+        buttonAction.enabled = true;
+    }
     #endregion
 
 
 
     #region Private Functions
-    void SelectBuilding(BuildAction buildAction, Die die)
+    void SelectBuilding(BuildAction buildAction, DieColor buildColor)
     {
         int randomNumber = Random.Range(0, buildAction.Buildings.Count);
         Building selectedBuilding = buildAction.Buildings[randomNumber].GetComponent<Building>();
@@ -129,7 +143,7 @@ public class BuildPanel : MonoBehaviour
         for (int i = 0; i < shapes.Count; i++)
         {
             if (i != randomNumber) shapes[i].enabled = false;
-            else shapes[i].GetComponent<BuildingSpawner>().Initialize(buildAction.Buildings[randomNumber], die.DieColor, buildAction.Production);
+            else shapes[i].GetComponent<BuildingSpawner>().Initialize(buildAction.Buildings[randomNumber], buildColor, buildAction.Production);
         }
     }
 
@@ -144,6 +158,24 @@ public class BuildPanel : MonoBehaviour
         {
             buttonOkay.GetComponent<Image>().color = Color.grey;
             buttonOkay.enabled = false;
+        }
+    }
+
+    void InitializeShapes(Color color)
+    {
+        for (int i = 0; i < shapes.Count; i++)
+        {
+            if (i < buildAction.Buildings.Count)
+            {
+                shapes[i].sprite = buildAction.Buildings[i].GetComponent<Building>().Shape;
+                shapes[i].color = color;
+                shapes[i].enabled = true;
+                shapes[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                shapes[i].gameObject.SetActive(false);
+            }
         }
     }
     #endregion

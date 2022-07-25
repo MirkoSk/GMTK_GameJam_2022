@@ -40,10 +40,22 @@ public class DiceRoller : MonoBehaviour
     public void RollTheDice()
     {
 		int diceRolls = GameManager.Instance.GoldenDieComplete ? 4 : 3;
-        for (int i = 0; i < diceRolls; i++)
+
+        if (TurnTracker.Instance.CurrentTurn == 0)
         {
-			DieState currentDieState = GameManager.Instance.DiceSet[i];
-			currentDieState.CurrentAction = currentDieState.Die.Actions[Random.Range(0, 6)];
+            for (int i = 0; i < diceRolls; i++)
+            {
+                DieState currentDieState = GameManager.Instance.DiceSet[i];
+                currentDieState.CurrentAction = currentDieState.Die.Actions[Random.Range(0, 2)];
+            }
+        }
+        else
+        {
+            for (int i = 0; i < diceRolls; i++)
+            {
+                DieState currentDieState = GameManager.Instance.DiceSet[i];
+                currentDieState.CurrentAction = currentDieState.Die.Actions[Random.Range(0, 6)];
+            }
         }
 
 		ShowRolledDice();

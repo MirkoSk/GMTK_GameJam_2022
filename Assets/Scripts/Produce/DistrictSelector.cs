@@ -47,7 +47,7 @@ public class DistrictSelector : MonoBehaviour
                 if (cell.DistrictID != 0)
                 {
                     District district = GameManager.Instance.Districts.Find(x => x.ID == cell.DistrictID);
-                    if (district.DieColor != null && district.DieColor == dieColor)
+                    if (district.DieColor != null && (district.DieColor == dieColor || dieColor.Joker))
                     {
                         ShowMouseOverOutlinesOfDistrict(district);
                         currentlyMousOveredDistrict = district.ID;

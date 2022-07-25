@@ -17,7 +17,6 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 	bool active;
 	Action action;
 	DieSlot selectedSlot;
-	Vector3 originalPosition;
 	Vector3 lastPosition;
     #endregion
 
@@ -30,15 +29,11 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 
     #region Unity Event Functions
-    private void Awake()
-    {
-		originalPosition = faceImage.transform.position;
-    }
-
     private void OnEnable()
     {
 		GameEvents.OnTechnologySelected += HandleTechnologySelected;
-		faceImage.transform.position = originalPosition;
+		faceImage.transform.localPosition = Vector3.zero;
+		faceImage.transform.localScale = Vector3.one;
 		active = true;
     }
 
@@ -70,6 +65,8 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 		if (selectedSlot != null)
         {
 			faceImage.transform.position = selectedSlot.transform.position;
+			float scalingFactor = selectedSlot.GetComponent<RectTransform>().rect.width / (faceImage.GetComponent<RectTransform>().rect.width * faceImage.transform.localScale.x);
+			faceImage.transform.localScale *= scalingFactor;
 			lastPosition = faceImage.transform.position;
 
 			GameEvents.TechnologySelected(action, selectedSlot);

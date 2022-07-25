@@ -14,8 +14,13 @@ public class ResearchPanel : MonoBehaviour
     [SerializeField] Button buttonAction;
     [SerializeField] Button buttonOkay;
     [SerializeField] Button buttonCancel;
+
+    [Header("Die Setups")]
+    [SerializeField] GameObject diceSetupPanel2;
     [SerializeField] DieSetup currentDieSetup;
     [SerializeField] DieSetup goldenDieSetup;
+    [SerializeField] GameObject diceSetupPanel4;
+    [SerializeField] List<DieSetup> allDieSetups = new List<DieSetup>();
     [SerializeField] Die goldenDie;
 
     // Private
@@ -91,8 +96,23 @@ public class ResearchPanel : MonoBehaviour
             Die dieForResearch;
             if (researchAction.DieColor == null) dieForResearch = die;
             else dieForResearch = GameManager.Instance.DiceSet.Find(x => x.Die.DieColor == researchAction.DieColor).Die;
-            currentDieSetup.UpdateDieDisplay(dieForResearch);
-            goldenDieSetup.UpdateDieDisplay(goldenDie);
+
+            if (dieForResearch.DieColor.Joker)
+            {
+                for (int i = 0; i < allDieSetups.Count; i++)
+                {
+                    allDieSetups[i].UpdateDieDisplay(GameManager.Instance.DiceSet[i].Die);
+                }
+                diceSetupPanel2.SetActive(false);
+                diceSetupPanel4.SetActive(true);
+            }
+            else
+            {
+                currentDieSetup.UpdateDieDisplay(dieForResearch);
+                goldenDieSetup.UpdateDieDisplay(goldenDie);
+                diceSetupPanel2.SetActive(true);
+                diceSetupPanel4.SetActive(false);
+            }
 
             buttonAction.gameObject.SetActive(false);
             buttonOkay.gameObject.SetActive(true);

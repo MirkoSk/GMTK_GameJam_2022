@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 	{
 		get
 		{
-			Die goldenDie = diceSet.Find(x => x.Die.name.Contains("Gold")).Die;
+			Die goldenDie = diceSet.Find(x => x.Die.DieColor.Joker).Die;
 			bool goldenDieComplete = true;
             for (int i = 0; i < goldenDie.Actions.Length; i++)
             {

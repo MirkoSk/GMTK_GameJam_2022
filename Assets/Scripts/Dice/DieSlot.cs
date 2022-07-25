@@ -28,8 +28,7 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     #region Unity Event Functions
     private void Awake()
     {
-		dieSetup = transform.GetRequiredComponentInParent<DieSetup>();
-		faceImage = transform.GetRequiredComponent<Image>();
+		Initialize();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -55,6 +54,8 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	public void UpdateFace(Action action)
 	{
 		this.action = action;
+
+		if (faceImage == null) Initialize();
 
 		if (action == null)
 		{
@@ -82,7 +83,11 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 
 	#region Private Functions
-
+	void Initialize()
+    {
+		dieSetup = transform.GetRequiredComponentInParent<DieSetup>();
+		faceImage = transform.GetRequiredComponent<Image>();
+	}
 	#endregion
 
 

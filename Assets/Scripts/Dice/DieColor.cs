@@ -10,6 +10,11 @@ public class DieColor : ScriptableObject
 	public string Name;
 	public Color Color;
 	public Material Material;
+
+	[Space]
+	public bool Joker;
+	[ConditionalHide("Joker", true, false)]
+	public List<DieColor> JokerColors = new List<DieColor>();
 	#endregion
 	
 	

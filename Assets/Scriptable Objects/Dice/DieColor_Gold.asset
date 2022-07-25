@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555324565d67e3745860eb167a54691c, type: 3}
   m_Name: DieColor_Gold
   m_EditorClassIdentifier: 
-  Name: golden
+  Name: any color
   Color: {r: 1, g: 1, b: 0, a: 1}
   Material: {fileID: 0}
+  Joker: 1
+  JokerColors:
+  - {fileID: 11400000, guid: 6325be40e63a22d4e941182da9efbc0d, type: 2}
+  - {fileID: 11400000, guid: b25cbadeaba818d428e8b9a647944c89, type: 2}
+  - {fileID: 11400000, guid: 0db707582d742c14eb2588bf92a66143, type: 2}

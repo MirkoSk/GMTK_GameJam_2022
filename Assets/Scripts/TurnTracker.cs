@@ -7,6 +7,8 @@ public class TurnTracker : MonoBehaviour
 {
 
 	#region Variable Declarations
+	public static TurnTracker Instance;
+
 	// Serialized Fields
 	[SerializeField] TextMeshProUGUI turnTextmesh;
 
@@ -17,12 +19,18 @@ public class TurnTracker : MonoBehaviour
 
 
 	#region Public Properties
-
+	public int CurrentTurn { get => currentTurn; }
 	#endregion
 
 
 
 	#region Unity Event Functions
+	private void Awake()
+	{
+		if (Instance == null) Instance = this;
+		else if (Instance != null) Destroy(gameObject);
+	}
+
 	private void Start()
 	{
 		turnTextmesh.text = currentTurn.ToString();

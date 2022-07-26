@@ -51,7 +51,7 @@ public class DieSetup : MonoBehaviour
 		background.color = die.DieColor.Color;
 		for (int i = 0; i < dieSlots.Count; i++)
 		{
-			dieSlots[i].UpdateFace(die.Actions[i]);
+			dieSlots[i].UpdateFace(die.Faces[i].Action);
 		}
 	}
 	#endregion

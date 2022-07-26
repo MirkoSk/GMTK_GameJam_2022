@@ -5,10 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Objects/Die")]
 public class Die : ScriptableObject
 {
+    [System.Serializable]
+    public class Face
+    {
+        public Action Action;
+        public int CurrentLevel = 1;
+    }
 
     #region Variable Declarations
     public DieColor DieColor;
-	public Action[] Actions = new Action[6];
+	public Face[] Faces = new Face[6];
     public Die StartupDefault;
     #endregion
 
@@ -23,11 +29,16 @@ public class Die : ScriptableObject
     #region Unity Event Functions
     private void OnEnable()
     {
+        for (int i = 0; i < Faces.Length; i++)
+        {
+            Faces[i].CurrentLevel = 1;
+        }
+
         if (StartupDefault)
         {
-            for (int i = 0; i < Actions.Length; i++)
+            for (int i = 0; i < Faces.Length; i++)
             {
-                Actions[i] = StartupDefault.Actions[i];
+                Faces[i].Action = StartupDefault.Faces[i].Action;
             }
         }
     }

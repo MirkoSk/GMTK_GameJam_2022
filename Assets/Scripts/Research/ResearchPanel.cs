@@ -166,13 +166,27 @@ public class ResearchPanel : MonoBehaviour
         if (selectedTechs.Find(x => x.TechnologyVisualizer == technologyVisualizer) == null) selectedTechs.Add(new TechActionDie(technologyVisualizer, selectedAction, dieSlot));
 
         int researchCostTotal = 0;
-        selectedTechs.ForEach((tech) => { researchCostTotal += tech.Action.ResearchCost; });
+        int pointsTotal = 0;
+        selectedTechs.ForEach((tech) => 
+        {
+            if (tech.Action.Type == ActionType.Upgrade)
+            {
+                researchCostTotal += (tech.Action as UpgradeAction).UpgradeCosts[dieSlot.Die.Faces[dieSlot.ID].CurrentLevel - 1] - (GameManager.Instance.DiceSet.Find(x => x.Die == currentDie).CurrentFaceUp.CurrentLevel - 1);
+                pointsTotal += ((tech.Action as UpgradeAction).UpgradeCosts[dieSlot.Die.Faces[dieSlot.ID].CurrentLevel - 1] - 1) * 150;
+            }
+            else
+            {
+                researchCostTotal += tech.Action.ResearchCost - (GameManager.Instance.DiceSet.Find(x => x.Die == currentDie).CurrentFaceUp.CurrentLevel - 1);
+                pointsTotal += (tech.Action.ResearchCost - 1) * 150;
+            }
+        });
         if (GoldTracker.Instance.CurrentGold >= researchCostTotal)
         {
             buttonOkay.onClick.RemoveAllListeners();
             buttonOkay.onClick.AddListener(() =>
             {
                 GoldTracker.Instance.AddGold(-researchCostTotal);
+                PointsTracker.Instance.AddPoints(pointsTotal);
                 GameManager.Instance.DiceSet.Find(x => x.Die == currentDie).ActionUsed = true;
 
                 buttonOkay.gameObject.SetActive(false);
@@ -181,8 +195,15 @@ public class ResearchPanel : MonoBehaviour
                 technologySelectionPanel.SetActive(false);
                 selectedTechs.ForEach((tech) => 
                 {
-                    tech.DieSlot.UpdateFace(tech.Action);
-                    tech.DieSlot.UpdateDie();
+                    if (tech.Action.Type == ActionType.Upgrade)
+                    {
+                        tech.DieSlot.Die.Faces[tech.DieSlot.ID].CurrentLevel++;
+                    }
+                    else
+                    {
+                        tech.DieSlot.UpdateFace(tech.Action);
+                        tech.DieSlot.UpdateDie();
+                    }
                 });
                 selectedTechs.Clear();
 
@@ -190,6 +211,11 @@ public class ResearchPanel : MonoBehaviour
             });
             buttonOkay.GetComponent<Image>().color = Color.white;
             buttonOkay.enabled = true;
+        }
+        else
+        {
+            buttonOkay.GetComponent<Image>().color = Color.grey;
+            buttonOkay.enabled = false;
         }
     }
     #endregion

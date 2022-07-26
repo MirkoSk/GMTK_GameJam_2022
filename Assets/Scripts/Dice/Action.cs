@@ -6,14 +6,15 @@ public enum ActionType
 {
 	Build,
 	Produce,
-	Research
+	Research,
+	Upgrade
 }
 
 public class Action : ScriptableObject
 {
 
 	#region Variable Declarations
-	[Space]
+	[Header("Action")]
 	public Sprite FaceSprite;
 	public string Effect;
 	public int ResearchCost = 1;
@@ -25,23 +26,29 @@ public class Action : ScriptableObject
 
 	#region Public Properties
 	public ActionType Type { get => type; }
-	#endregion
+    #endregion
 
 
 
-	#region Public Functions
+    #region Unity Event Functions
 
-	#endregion
-
-
-
-	#region Private Functions
-
-	#endregion
+    #endregion
 
 
 
-	#region Coroutines
+    #region Public Functions
 
-	#endregion
+    #endregion
+
+
+
+    #region Private Functions
+
+    #endregion
+
+
+
+    #region Coroutines
+
+    #endregion
 }

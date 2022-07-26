@@ -17,7 +17,7 @@ public class RolledDieVisualizer : MonoBehaviour
 	[SerializeField] Image face;
 
 	// Private
-	Action currentAction;
+	Die.Face currentFace;
 	Button button;
 	bool dieCurrentlySelected;
     #endregion
@@ -53,8 +53,8 @@ public class RolledDieVisualizer : MonoBehaviour
 
 		// Update dice visuals
 		DieState currentDieState = GameManager.Instance.DiceSet.Find(x => x.Die == die);
-		currentAction = currentDieState.CurrentAction;
-		face.sprite = currentAction.FaceSprite;
+		currentFace = currentDieState.CurrentFaceUp;
+		face.sprite = currentFace.Action.FaceSprite;
 		UpdateDieVisuals(die, null, false);
 	}
 
@@ -74,7 +74,7 @@ public class RolledDieVisualizer : MonoBehaviour
     {
 		if (dieCurrentlySelected) return;
 
-		GameEvents.ActionSelected(die, currentAction);
+		GameEvents.ActionSelected(die, currentFace.Action);
 	}
     #endregion
 
@@ -84,8 +84,8 @@ public class RolledDieVisualizer : MonoBehaviour
 	void ActivateDie()
     {
 		border.color = die.DieColor.Color;
-		if (currentAction.Type == ActionType.Produce && (currentAction as ProduceAction).DieColor != null) face.color = (currentAction as ProduceAction).DieColor.Color;
-		else if (currentAction.Type == ActionType.Research && (currentAction as ResearchAction).DieColor != null) face.color = (currentAction as ResearchAction).DieColor.Color;
+		if (currentFace.Action.Type == ActionType.Produce && (currentFace.Action as ProduceAction).DieColor != null) face.color = (currentFace.Action as ProduceAction).DieColor.Color;
+		else if (currentFace.Action.Type == ActionType.Research && (currentFace.Action as ResearchAction).DieColor != null) face.color = (currentFace.Action as ResearchAction).DieColor.Color;
 		else face.color = die.DieColor.Color;
 		button.enabled = true;
 	}

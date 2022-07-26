@@ -10,6 +10,7 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 	#region Variable Declarations
 	// Serialized Fields
+	[SerializeField] int id;
 
 	// Private
 	Image faceImage;
@@ -21,6 +22,8 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     #region Public Properties
 	public Die Die { get => dieSetup.Die; }
+	public Action Action { get => action; }
+	public int ID { get => id; }
     #endregion
 
 
@@ -76,7 +79,7 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
 		if (action == null) return;
 
-		dieSetup.Die.Actions[dieSetup.DieSlots.IndexOf(this)] = action;
+		dieSetup.Die.Faces[dieSetup.DieSlots.IndexOf(this)].Action = action;
     }
 	#endregion
 

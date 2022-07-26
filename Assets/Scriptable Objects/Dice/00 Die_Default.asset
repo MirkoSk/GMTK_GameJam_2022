@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: 00 Die_Default
   m_EditorClassIdentifier: 
   DieColor: {fileID: 0}
-  Actions:
-  - {fileID: 11400000, guid: 2d5505be5e056cf4ebb75f506087dac8, type: 2}
-  - {fileID: 11400000, guid: 0f28d478409d9904d8f71ef136997ebd, type: 2}
-  - {fileID: 11400000, guid: 7afa3d6a6af2fea4792cc296e6e12eea, type: 2}
-  - {fileID: 11400000, guid: 7afa3d6a6af2fea4792cc296e6e12eea, type: 2}
-  - {fileID: 11400000, guid: 8e69e2b5c57012f4389f7cb09cc43291, type: 2}
-  - {fileID: 11400000, guid: 8e69e2b5c57012f4389f7cb09cc43291, type: 2}
+  Faces:
+  - Action: {fileID: 11400000, guid: 2d5505be5e056cf4ebb75f506087dac8, type: 2}
+    CurrentLevel: 1
+  - Action: {fileID: 11400000, guid: 0f28d478409d9904d8f71ef136997ebd, type: 2}
+    CurrentLevel: 1
+  - Action: {fileID: 11400000, guid: 7afa3d6a6af2fea4792cc296e6e12eea, type: 2}
+    CurrentLevel: 1
+  - Action: {fileID: 11400000, guid: 7afa3d6a6af2fea4792cc296e6e12eea, type: 2}
+    CurrentLevel: 1
+  - Action: {fileID: 11400000, guid: 8e69e2b5c57012f4389f7cb09cc43291, type: 2}
+    CurrentLevel: 1
+  - Action: {fileID: 11400000, guid: 8e69e2b5c57012f4389f7cb09cc43291, type: 2}
+    CurrentLevel: 1
   StartupDefault: {fileID: 0}

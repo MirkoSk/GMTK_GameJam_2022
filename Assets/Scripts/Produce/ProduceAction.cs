@@ -10,6 +10,8 @@ public class ProduceAction : Action
 	[Header("Produce")]
 	public string PlayerPrompt;
 	public DieColor DieColor;
+
+	[Space]
 	public bool ProduceTwice;
 	public int NumberOfDistricts = 1;
 	#endregion

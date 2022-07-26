@@ -7,9 +7,11 @@ public class Cell : MonoBehaviour
 
 	#region Variable Declarations
 	// Serialized Fields
-	[SerializeField] int district;
+	[SerializeField] int districtID;
 	[SerializeField] GameObject outlinesMouseOver;
 	[SerializeField] GameObject outlinesSelected;
+	[InspectorButton("RemoveIDsBelowStreets", ButtonWidth = 200f)]
+	[SerializeField] bool removeIDsBelowStreets;
 
 	// Private
 
@@ -18,19 +20,19 @@ public class Cell : MonoBehaviour
 
 
 	#region Public Properties
-	public int DistrictID { get => district; }
-	#endregion
-	
-	
-	
-	#region Unity Event Functions
+	public int DistrictID { get => districtID; }
+    #endregion
 
-	#endregion
-	
-	
-	
-	#region Public Functions
-	public void ToggleOutlinesMouseOver(bool visible, Color color)
+
+
+    #region Unity Event Functions
+    
+    #endregion
+
+
+
+    #region Public Functions
+    public void ToggleOutlinesMouseOver(bool visible, Color color)
     {
 		if (visible && outlinesSelected.gameObject.activeSelf) return;
 
@@ -58,7 +60,10 @@ public class Cell : MonoBehaviour
 
 
 	#region Private Functions
-
+	void RemoveIDsBelowStreets()
+    {
+		if (Physics.Raycast(transform.position, Vector3.up)) districtID = 0;
+    }
 	#endregion
 
 

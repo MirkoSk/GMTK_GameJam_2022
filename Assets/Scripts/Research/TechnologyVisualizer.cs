@@ -12,10 +12,10 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 	// Serialized Fields
 	[SerializeField] Image faceImage;
 	[SerializeField] TextMeshProUGUI costTextmesh;
+	[SerializeField] Action action;
 
 	// Private
 	bool active;
-	Action action;
 	DieSlot selectedSlot;
 	Vector3 lastPosition;
     #endregion
@@ -31,6 +31,11 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 
     #region Unity Event Functions
+    private void Start()
+    {
+		if (action != null) Initialize(action);
+    }
+
     private void OnEnable()
     {
 		faceImage.transform.localPosition = Vector3.zero;
@@ -64,7 +69,7 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 			float scalingFactor = selectedSlot.GetComponent<RectTransform>().rect.width / (faceImage.GetComponent<RectTransform>().rect.width * faceImage.transform.localScale.x);
 			faceImage.transform.localScale *= scalingFactor;
 			lastPosition = faceImage.transform.position;
-
+			
 			GameEvents.TechnologySelected(this, action, selectedSlot);
 		}
 		else
@@ -83,11 +88,14 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
     {
 		this.action = action;
 		faceImage.sprite = action.FaceSprite;
+
 		if (action.Type == ActionType.Produce && (action as ProduceAction).DieColor != null) faceImage.color = (action as ProduceAction).DieColor.Color;
 		else if (action.Type == ActionType.Research && (action as ResearchAction).DieColor != null) faceImage.color = (action as ResearchAction).DieColor.Color;
 		else faceImage.color = Color.white;
-		costTextmesh.text = action.ResearchCost.ToString();
-    }
+
+		if (action.Type == ActionType.Upgrade) costTextmesh.text = (action as UpgradeAction).UpgradeCosts[0].ToString() + " / " + (action as UpgradeAction).UpgradeCosts[1].ToString();
+		else costTextmesh.text = action.ResearchCost.ToString();
+	}
 
 	public void UpdateSelectedSlot(DieSlot dieSlot)
     {

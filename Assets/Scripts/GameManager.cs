@@ -6,7 +6,7 @@ using UnityEngine;
 public class DieState
 {
 	public Die Die;
-	public Action CurrentAction;
+	public Die.Face CurrentFaceUp;
 	public bool ActionUsed;
 }
 
@@ -53,9 +53,9 @@ public class GameManager : MonoBehaviour
 		{
 			Die goldenDie = diceSet.Find(x => x.Die.DieColor.Joker).Die;
 			bool goldenDieComplete = true;
-            for (int i = 0; i < goldenDie.Actions.Length; i++)
+            for (int i = 0; i < goldenDie.Faces.Length; i++)
             {
-				if (goldenDie.Actions[i] == null) goldenDieComplete = false;
+				if (goldenDie.Faces[i].Action == null) goldenDieComplete = false;
             }
 			return goldenDieComplete;
 		}
@@ -126,14 +126,14 @@ public class GameManager : MonoBehaviour
 
 		diceSet.ForEach((dieState) =>
 		{
-			if (dieState.CurrentAction != null && !dieState.ActionUsed) allDiceActionsUsed = false;
+			if (dieState.CurrentFaceUp != null && !dieState.ActionUsed) allDiceActionsUsed = false;
 		});
 
 		if (allDiceActionsUsed)
         {
 			diceSet.ForEach((dieState) => 
 			{
-				dieState.CurrentAction = null;
+				dieState.CurrentFaceUp = null;
 				dieState.ActionUsed = false; 
 			});
 			GameEvents.NewTurn();

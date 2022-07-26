@@ -18,6 +18,7 @@ public class ProductionPanel : MonoBehaviour
 
     // Private
     int productionValueOfSelectedDistricts;
+    Die die;
     #endregion
 
 
@@ -57,6 +58,7 @@ public class ProductionPanel : MonoBehaviour
             throw;
         }
 
+        this.die = die;
         string effectString = produceAction.Effect;
 
         string colorHex = "FFFFFF";
@@ -122,7 +124,7 @@ public class ProductionPanel : MonoBehaviour
         {
             districts.ForEach((district) =>
             {
-                productionValueOfSelectedDistricts += district.ProductionValue;
+                productionValueOfSelectedDistricts += district.ProductionValue + (GameManager.Instance.DiceSet.Find(x => x.Die == die).CurrentFaceUp.CurrentLevel - 1);
             });
             buttonOkay.GetComponent<Image>().color = Color.white;
             buttonOkay.enabled = true;

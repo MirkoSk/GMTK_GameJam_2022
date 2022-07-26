@@ -2,15 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/BuildAction")]
-public class BuildAction : Action
+[CreateAssetMenu(menuName = "Scriptable Objects/UpgradeAction")]
+public class UpgradeAction : Action
 {
 
-	#region Variable Declarations
-    [Header("Build")]
-	public int Cost;
-	public List<GameObject> Buildings = new List<GameObject>();
-    public int Production = 1;
+    #region Variable Declarations
+    public List<int> UpgradeCosts = new List<int>();
     #endregion
 
 
@@ -24,7 +21,7 @@ public class BuildAction : Action
     #region Unity Event Functions
     private void Awake()
     {
-        type = ActionType.Build;
+        type = ActionType.Upgrade;
     }
     #endregion
 

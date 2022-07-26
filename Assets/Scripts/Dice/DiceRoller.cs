@@ -46,7 +46,7 @@ public class DiceRoller : MonoBehaviour
             for (int i = 0; i < diceRolls; i++)
             {
                 DieState currentDieState = GameManager.Instance.DiceSet[i];
-                currentDieState.CurrentAction = currentDieState.Die.Actions[Random.Range(0, 2)];
+                currentDieState.CurrentFaceUp = currentDieState.Die.Faces[Random.Range(0, 2)];
             }
         }
         else
@@ -54,7 +54,7 @@ public class DiceRoller : MonoBehaviour
             for (int i = 0; i < diceRolls; i++)
             {
                 DieState currentDieState = GameManager.Instance.DiceSet[i];
-                currentDieState.CurrentAction = currentDieState.Die.Actions[Random.Range(0, 6)];
+                currentDieState.CurrentFaceUp = currentDieState.Die.Faces[Random.Range(0, 6)];
             }
         }
 

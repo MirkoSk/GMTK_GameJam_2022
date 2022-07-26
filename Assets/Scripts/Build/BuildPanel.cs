@@ -9,6 +9,10 @@ public class BuildPanel : MonoBehaviour
 
     #region Variable Declarations
     // Serialized Fields
+    [Space]
+    [SerializeField] int pointsPerBuilding = 200;
+
+    [Space]
     [SerializeField] TextMeshProUGUI effectTextmesh;
     [SerializeField] TextMeshProUGUI costTextmesh;
     [SerializeField] List<Image> shapes = new List<Image>();
@@ -93,8 +97,10 @@ public class BuildPanel : MonoBehaviour
             buttonOkay.onClick.RemoveAllListeners();
             buttonOkay.onClick.AddListener(() => 
             {
-                GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
-                GoldTracker.Instance.AddGold(-buildAction.Cost);
+                DieState currentDieState = GameManager.Instance.DiceSet.Find(x => x.Die == die);
+                currentDieState.ActionUsed = true;
+                GoldTracker.Instance.AddGold(Mathf.Clamp(-buildAction.Cost + (currentDieState.CurrentFaceUp.CurrentLevel - 1), 0, 999));
+                PointsTracker.Instance.AddPoints(pointsPerBuilding);
 
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);

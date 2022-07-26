@@ -7,7 +7,9 @@ public class ResearchAction : Action
 {
 
 	#region Variable Declarations
+	[Header("Research")]
 	public DieColor DieColor;
+	public int NumberOfResearches = 1;
 	#endregion
 
 

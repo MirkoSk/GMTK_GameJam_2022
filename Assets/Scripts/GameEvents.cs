@@ -74,11 +74,11 @@ public static class GameEvents
 	}
 
 	// Research
-	public delegate void TechnologySelectionHandler(Action researchedAction, DieSlot dieSlot);
+	public delegate void TechnologySelectionHandler(TechnologyVisualizer technologyVisualizer, Action researchedAction, DieSlot dieSlot);
 	public static event TechnologySelectionHandler OnTechnologySelected;
-	public static void TechnologySelected(Action researchedAction, DieSlot dieSlot)
+	public static void TechnologySelected(TechnologyVisualizer technologyVisualizer, Action researchedAction, DieSlot dieSlot)
     {
 		Debug.Log("[GAME_EVENT] OnTechnologySelected: " + researchedAction + " on die " + dieSlot.Die);
-		OnTechnologySelected?.Invoke(researchedAction, dieSlot);
+		OnTechnologySelected?.Invoke(technologyVisualizer, researchedAction, dieSlot);
 	}
 }

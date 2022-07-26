@@ -23,7 +23,9 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 
     #region Public Properties
-
+	public Action Action { get => action; }
+	public DieSlot SelectedSlot { get => selectedSlot; }
+	public bool Active { get => active; set => active = value; }
     #endregion
 
 
@@ -31,16 +33,10 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
     #region Unity Event Functions
     private void OnEnable()
     {
-		GameEvents.OnTechnologySelected += HandleTechnologySelected;
 		faceImage.transform.localPosition = Vector3.zero;
 		faceImage.transform.localScale = Vector3.one;
 		active = true;
     }
-
-    private void OnDisable()
-    {
-        GameEvents.OnTechnologySelected -= HandleTechnologySelected;
-	}
 
     public void OnBeginDrag(PointerEventData eventData)
 	{
@@ -69,7 +65,7 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 			faceImage.transform.localScale *= scalingFactor;
 			lastPosition = faceImage.transform.position;
 
-			GameEvents.TechnologySelected(action, selectedSlot);
+			GameEvents.TechnologySelected(this, action, selectedSlot);
 		}
 		else
         {
@@ -102,11 +98,7 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 	
 	
 	#region Private Functions
-	void HandleTechnologySelected(Action researchedAction, DieSlot dieSlot)
-    {
-		// Another technology has been selected
-		if (researchedAction != action && dieSlot != selectedSlot) active = false;
-    }
+	
 	#endregion
 
 

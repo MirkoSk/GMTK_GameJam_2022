@@ -6,6 +6,20 @@ using TMPro;
 
 public class ResearchPanel : MonoBehaviour 
 {
+    [System.Serializable]
+    public class TechActionDie
+    {
+        public TechnologyVisualizer TechnologyVisualizer;
+        public Action Action;
+        public DieSlot DieSlot;
+
+        public TechActionDie(TechnologyVisualizer technologyVisualizer, Action action, DieSlot dieSlot)
+        {
+            TechnologyVisualizer = technologyVisualizer;
+            Action = action;
+            DieSlot = dieSlot;
+        }
+    }
 
     #region Variable Declarations
     // Serialized Fields
@@ -26,6 +40,7 @@ public class ResearchPanel : MonoBehaviour
     // Private
     ResearchAction researchAction;
     Die currentDie;
+    List<TechActionDie> selectedTechs = new List<TechActionDie>();
     #endregion
 
 
@@ -146,24 +161,32 @@ public class ResearchPanel : MonoBehaviour
 	
 	
 	#region Private Functions
-	void HandleTechnologySelected(Action selectedAction, DieSlot dieSlot)
+	void HandleTechnologySelected(TechnologyVisualizer technologyVisualizer, Action selectedAction, DieSlot dieSlot)
     {
-        if (GoldTracker.Instance.CurrentGold >= selectedAction.ResearchCost)
+        if (selectedTechs.Find(x => x.TechnologyVisualizer == technologyVisualizer) == null) selectedTechs.Add(new TechActionDie(technologyVisualizer, selectedAction, dieSlot));
+
+        int researchCostTotal = 0;
+        selectedTechs.ForEach((tech) => { researchCostTotal += tech.Action.ResearchCost; });
+        if (GoldTracker.Instance.CurrentGold >= researchCostTotal)
         {
             buttonOkay.onClick.RemoveAllListeners();
             buttonOkay.onClick.AddListener(() =>
             {
-                GoldTracker.Instance.AddGold(-selectedAction.ResearchCost);
+                GoldTracker.Instance.AddGold(-researchCostTotal);
                 GameManager.Instance.DiceSet.Find(x => x.Die == currentDie).ActionUsed = true;
 
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
 
                 technologySelectionPanel.SetActive(false);
-                dieSlot.UpdateFace(selectedAction);
-                dieSlot.UpdateDie();
+                selectedTechs.ForEach((tech) => 
+                {
+                    tech.DieSlot.UpdateFace(tech.Action);
+                    tech.DieSlot.UpdateDie();
+                });
+                selectedTechs.Clear();
 
-                GameEvents.ActionCompleted(dieSlot.Die, researchAction, true);
+                GameEvents.ActionCompleted(currentDie, researchAction, true);
             });
             buttonOkay.GetComponent<Image>().color = Color.white;
             buttonOkay.enabled = true;

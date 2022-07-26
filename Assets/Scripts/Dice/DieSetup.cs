@@ -61,7 +61,7 @@ public class DieSetup : MonoBehaviour
 	#region Private Functions
 	void HandleActionCompletion(Die die, Action action, bool success)
     {
-		if (die == this.die && action.Type == ActionType.Research && success)
+		if (action.Type == ActionType.Research && success)
         {
 			UpdateDieDisplay();
         }

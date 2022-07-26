@@ -91,19 +91,24 @@ public class TechnologyVisualizer : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 	public void UpdateSelectedSlot(DieSlot dieSlot)
     {
-		selectedSlot = dieSlot;
+		if (dieSlot != null) selectedSlot = dieSlot;
+		else
+        {
+			faceImage.transform.localPosition = Vector3.zero;
+			faceImage.transform.localScale = Vector3.one;
+		}
     }
-	#endregion
-	
-	
-	
-	#region Private Functions
-	
-	#endregion
+    #endregion
 
 
 
-	#region Coroutines
+    #region Private Functions
 
-	#endregion
+    #endregion
+
+
+
+    #region Coroutines
+
+    #endregion
 }

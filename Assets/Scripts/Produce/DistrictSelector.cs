@@ -12,8 +12,9 @@ public class DistrictSelector : MonoBehaviour
     // Private
     bool active;
     DieColor dieColor;
+    int numberOfDistricts;
     int currentlyMousOveredDistrict;
-    int currentlySelectedDistrict;
+    List<int> currentlySelectedDistricts = new List<int>();
     #endregion
 
 
@@ -57,32 +58,33 @@ public class DistrictSelector : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && currentlyMousOveredDistrict != currentlySelectedDistrict)
+        if (Input.GetMouseButtonDown(0) && currentlyMousOveredDistrict != 0 && !currentlySelectedDistricts.Contains(currentlyMousOveredDistrict))
         {
-            if (currentlySelectedDistrict != 0) HideSelectedOutlinesFromLastSelectedDistrict();
-
-            if (currentlyMousOveredDistrict != 0)
+            if (currentlySelectedDistricts.Count >= numberOfDistricts)
             {
-                District district = GameManager.Instance.Districts.Find(x => x.ID == currentlyMousOveredDistrict);
-                ShowSelectedOutlinesOfDistrict(district);
-                currentlySelectedDistrict = currentlyMousOveredDistrict;
+                HideSelectedOutlinesFromDistrict(currentlySelectedDistricts[0]);
+                currentlySelectedDistricts.RemoveAt(0);
+            }
 
-                GameEvents.DistrictSelectionChanged(district);
-            }
-            else
+            District district = GameManager.Instance.Districts.Find(x => x.ID == currentlyMousOveredDistrict);
+            ShowSelectedOutlinesOfDistrict(district);
+            currentlySelectedDistricts.Add(currentlyMousOveredDistrict);
+
+            List<District> selectedDistricts = new List<District>();
+            for (int i = 0; i < currentlySelectedDistricts.Count; i++)
             {
-                currentlySelectedDistrict = 0;
-                GameEvents.DistrictSelectionChanged(null);
+                selectedDistricts.Add(GameManager.Instance.Districts.Find(x => x.ID == currentlySelectedDistricts[i]));
             }
+            GameEvents.DistrictSelectionChanged(selectedDistricts);
         }
     }
 
     private void OnDisable()
     {
         if (currentlyMousOveredDistrict != 0) HideMouseOverOutlinesFromLastSelectedDistrict();
-        if (currentlySelectedDistrict != 0) HideSelectedOutlinesFromLastSelectedDistrict();
+        if (currentlySelectedDistricts.Count > 0) currentlySelectedDistricts.ForEach((district) => { HideSelectedOutlinesFromDistrict(district); });
         currentlyMousOveredDistrict = 0;
-        currentlySelectedDistrict = 0;
+        currentlySelectedDistricts.Clear();
         active = false;
     }
     #endregion
@@ -90,9 +92,10 @@ public class DistrictSelector : MonoBehaviour
 
 
     #region Public Functions
-    public void Initialize(DieColor dieColor)
+    public void Initialize(DieColor dieColor, int numberOfDistricts)
     {
         this.dieColor = dieColor;
+        this.numberOfDistricts = numberOfDistricts;
         active = true;
     }
     #endregion
@@ -117,9 +120,9 @@ public class DistrictSelector : MonoBehaviour
         });
     }
 
-    void HideSelectedOutlinesFromLastSelectedDistrict()
+    void HideSelectedOutlinesFromDistrict(int districtID)
     {
-        District district = GameManager.Instance.Districts.Find(x => x.ID == currentlySelectedDistrict);
+        District district = GameManager.Instance.Districts.Find(x => x.ID == districtID);
         district.Cells.ForEach((cell) =>
         {
             cell.ToggleOutlinesSelected(false, Color.white);

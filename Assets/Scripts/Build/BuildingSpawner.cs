@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler
 {
 
 	#region Variable Declarations
@@ -11,6 +11,7 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 	[SerializeField] LayerMask raycastLayerMask;
 
 	// Private
+	bool active;
 	GameObject building;
 	DieColor dieColor;
 	GameObject draggable;
@@ -28,7 +29,7 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     #region Unity Event Functions
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		if (building == null) return;
+		if (building == null || !active) return;
 
 		Ray positionRay = Camera.main.ScreenPointToRay(new Vector3(eventData.position.x, eventData.position.y, 0));
 		RaycastHit hitInfo;
@@ -36,16 +37,12 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 		draggable = Instantiate(building, hitInfo.point, Quaternion.identity);
 		draggable.GetComponent<Building>().Initialize(dieColor, buildingProductionValue);
 		eventData.pointerDrag = draggable.GetComponentInChildren<BuildingDragger>().gameObject;
+		active = false;
 	}
 
 	public void OnDrag(PointerEventData eventData)
 	{
 
-	}
-
-	public void OnEndDrag(PointerEventData eventData)
-	{
-		
 	}
 	#endregion
 
@@ -57,6 +54,7 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 		building = buildingPrefab;
 		this.dieColor = dieColor;
 		this.buildingProductionValue = productionValue;
+		active = true;
     }
 	#endregion
 

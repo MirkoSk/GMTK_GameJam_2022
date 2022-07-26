@@ -59,13 +59,18 @@ public static class GameEvents
     }
 
 	// Produce
-	public delegate void DistrictSelectionHandler(District district);
+	public delegate void DistrictSelectionHandler(List<District> districts);
 	public static event DistrictSelectionHandler OnDistrictSelectionChanged;
-	public static void DistrictSelectionChanged(District district)
+	public static void DistrictSelectionChanged(List<District> districts)
 	{
-		int districtID = (district != null) ? district.ID : 0;
-		Debug.Log("[GAME_EVENT] OnDistrictSelectionChanged. Selected district id: " + districtID);
-		OnDistrictSelectionChanged?.Invoke(district);
+		string districtIDs = "null";
+		if (districts != null && districts.Count > 0)
+        {
+			districtIDs = "";
+			districts.ForEach((district) => { districtIDs += district.ID + ", "; });
+        }
+		Debug.Log("[GAME_EVENT] OnDistrictSelectionChanged. Selected district ids: " + districtIDs);
+		OnDistrictSelectionChanged?.Invoke(districts);
 	}
 
 	// Research

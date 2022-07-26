@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 110069b4daa27684e9808df6201abab0, type: 3}
-  m_Name: Produce Action 03 Green
+  m_Name: Produce Action 06 DieColor Twice
   m_EditorClassIdentifier: 
-  FaceSprite: {fileID: 21300000, guid: 390df3b9f44b352498da728061799efe, type: 3}
-  Effect: Produce in 1 $color district.
-  ResearchCost: 2
+  FaceSprite: {fileID: 21300000, guid: b1fd567c1c2ae244584de7affb7e3f2f, type: 3}
+  Effect: Produce in 1 $color district twice.
+  ResearchCost: 4
   PlayerPrompt: Choose 1 district.
-  DieColor: {fileID: 11400000, guid: b25cbadeaba818d428e8b9a647944c89, type: 2}
-  ProduceTwice: 0
+  DieColor: {fileID: 11400000, guid: 0db707582d742c14eb2588bf92a66143, type: 2}
+  ProduceTwice: 1
   NumberOfDistricts: 1

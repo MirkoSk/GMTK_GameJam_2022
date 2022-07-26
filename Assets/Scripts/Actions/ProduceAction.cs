@@ -7,9 +7,11 @@ public class ProduceAction : Action
 {
 
 	#region Variable Declarations
-
 	[Header("Produce")]
+	public string PlayerPrompt;
 	public DieColor DieColor;
+	public bool ProduceTwice;
+	public int NumberOfDistricts = 1;
 	#endregion
 
 

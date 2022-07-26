@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Collider))]
-public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class BuildingDragger : MonoBehaviour, IDragHandler
 {
 
 	#region Variable Declarations
@@ -39,19 +39,9 @@ public class BuildingDragger : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 		GameEvents.OnActionCompleted -= Deactivate;
 	}
 
-	public void OnBeginDrag(PointerEventData eventData)
-	{
-
-	}
-
 	public void OnDrag(PointerEventData eventData)
 	{
 		UpdateBuildingPlacement(eventData);
-	}
-
-	public void OnEndDrag(PointerEventData eventData)
-	{
-
 	}
 
     private void OnTriggerEnter(Collider other)

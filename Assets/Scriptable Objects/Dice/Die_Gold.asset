@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DieColor: {fileID: 11400000, guid: 733218b4668197f40b5204c81851f96e, type: 2}
   Actions:
-  - {fileID: 11400000, guid: 2d5505be5e056cf4ebb75f506087dac8, type: 2}
-  - {fileID: 11400000, guid: 2d5505be5e056cf4ebb75f506087dac8, type: 2}
-  - {fileID: 11400000, guid: 2d5505be5e056cf4ebb75f506087dac8, type: 2}
-  - {fileID: 11400000, guid: 2d5505be5e056cf4ebb75f506087dac8, type: 2}
-  - {fileID: 11400000, guid: 2d5505be5e056cf4ebb75f506087dac8, type: 2}
-  - {fileID: 11400000, guid: 2d5505be5e056cf4ebb75f506087dac8, type: 2}
-  StartupDefault: {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  StartupDefault: {fileID: 11400000, guid: c42cc69cfbeec56448688918bda0bbec, type: 2}

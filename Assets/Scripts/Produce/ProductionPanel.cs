@@ -10,13 +10,14 @@ public class ProductionPanel : MonoBehaviour
     #region Variable Declarations
     // Serialized Fields
     [SerializeField] TextMeshProUGUI effectTextmesh;
+    [SerializeField] TextMeshProUGUI playerPromptTextmesh;
     [SerializeField] Button buttonAction;
     [SerializeField] Button buttonOkay;
     [SerializeField] Button buttonCancel;
     [SerializeField] DistrictSelector districtSelector;
 
     // Private
-    int productionValueOfSelectedDistrict;
+    int productionValueOfSelectedDistricts;
     #endregion
 
 
@@ -69,6 +70,7 @@ public class ProductionPanel : MonoBehaviour
         string colorString = "<color=#" + colorHex + ">" + colorName + "</color>";
         effectString = effectString.Replace("$color", colorString);
         effectTextmesh.text = effectString;
+        playerPromptTextmesh.text = produceAction.PlayerPrompt;
 
         gameObject.SetActive(true);
 
@@ -80,7 +82,8 @@ public class ProductionPanel : MonoBehaviour
         buttonOkay.onClick.RemoveAllListeners();
         buttonOkay.onClick.AddListener(() =>
         {
-            GoldTracker.Instance.AddGold(productionValueOfSelectedDistrict);
+            if (produceAction.ProduceTwice) GoldTracker.Instance.AddGold(productionValueOfSelectedDistricts * 2);
+            else GoldTracker.Instance.AddGold(productionValueOfSelectedDistricts);
             GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
             buttonOkay.gameObject.SetActive(false);
             buttonCancel.gameObject.SetActive(false);
@@ -98,8 +101,8 @@ public class ProductionPanel : MonoBehaviour
             GameEvents.ActionCompleted(die, action, false);
         });
 
-        if (produceAction.DieColor == null) districtSelector.Initialize(die.DieColor);
-        else districtSelector.Initialize(produceAction.DieColor);
+        if (produceAction.DieColor == null) districtSelector.Initialize(die.DieColor, produceAction.NumberOfDistricts);
+        else districtSelector.Initialize(produceAction.DieColor, produceAction.NumberOfDistricts);
     }
 
 	public void Deactivate()
@@ -111,13 +114,18 @@ public class ProductionPanel : MonoBehaviour
 	
 	
 	#region Private Functions
-	void UpdateProduceButton(District district)
+	void UpdateProduceButton(List<District> districts)
     {
-        if (district != null)
+        productionValueOfSelectedDistricts = 0;
+
+        if (districts != null && districts.Count > 0)
         {
+            districts.ForEach((district) =>
+            {
+                productionValueOfSelectedDistricts += district.ProductionValue;
+            });
             buttonOkay.GetComponent<Image>().color = Color.white;
             buttonOkay.enabled = true;
-            productionValueOfSelectedDistrict = district.ProductionValue;
         }
         else
         {

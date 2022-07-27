@@ -27,7 +27,7 @@ public class Die : ScriptableObject
 
 
     #region Unity Event Functions
-    private void OnEnable()
+    private void OnDisable()
     {
         for (int i = 0; i < Faces.Length; i++)
         {

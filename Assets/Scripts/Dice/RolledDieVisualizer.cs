@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 [RequireComponent(typeof(Button))]
 public class RolledDieVisualizer : MonoBehaviour 
@@ -15,6 +16,7 @@ public class RolledDieVisualizer : MonoBehaviour
 	[Space]
 	[SerializeField] Image border;
 	[SerializeField] Image face;
+	[SerializeField] TextMeshProUGUI levelTextmesh;
 
 	// Private
 	Die.Face currentFace;
@@ -55,6 +57,7 @@ public class RolledDieVisualizer : MonoBehaviour
 		DieState currentDieState = GameManager.Instance.DiceSet.Find(x => x.Die == die);
 		currentFace = currentDieState.CurrentFaceUp;
 		face.sprite = currentFace.Action.FaceSprite;
+		levelTextmesh.text = currentFace.CurrentLevel.ToString();
 		UpdateDieVisuals(die, null, false);
 	}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(Image))]
 public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -11,6 +12,7 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	#region Variable Declarations
 	// Serialized Fields
 	[SerializeField] int id;
+	[SerializeField] TextMeshProUGUI levelTextmesh;
 
 	// Private
 	Image faceImage;
@@ -64,6 +66,7 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		{
 			faceImage.sprite = null;
 			faceImage.color = new Color(1,1,1,0);
+			levelTextmesh.text = "";
 		}
 		else
 		{
@@ -72,6 +75,7 @@ public class DieSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 			if (action.Type == ActionType.Produce && (action as ProduceAction).DieColor != null) faceImage.color = (action as ProduceAction).DieColor.Color;
 			else if (action.Type == ActionType.Research && (action as ResearchAction).DieColor != null) faceImage.color = (action as ResearchAction).DieColor.Color;
 			else faceImage.color = Die.DieColor.Color;
+			levelTextmesh.text = Die.Faces[id].CurrentLevel.ToString();
 		}
 	}
 

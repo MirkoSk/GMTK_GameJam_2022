@@ -9,6 +9,7 @@ public class DiceRoller : MonoBehaviour
 	// Serialized Fields
 	[SerializeField] GameObject buttonRoll;
 	[SerializeField] GameObject diceLayout;
+    [SerializeField] AudioClip diceRollSound;
 
     // Private
 
@@ -58,7 +59,7 @@ public class DiceRoller : MonoBehaviour
             }
         }
 
-        AudioManager.Instance.PlayButtonClickVariant();
+        AudioManager.Instance.PlaySound(diceRollSound);
 
 		ShowRolledDice();
 

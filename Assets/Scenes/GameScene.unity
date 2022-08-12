@@ -5587,6 +5587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonRoll: {fileID: 1835935088}
   diceLayout: {fileID: 838534535}
+  diceRollSound: {fileID: 8300000, guid: ed27bc960767a884ca3990b53cd34d86, type: 3}
 --- !u!1001 &247139698
 PrefabInstance:
   m_ObjectHideFlags: 0

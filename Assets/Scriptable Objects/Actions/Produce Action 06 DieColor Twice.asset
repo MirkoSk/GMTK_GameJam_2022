@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FaceSprite: {fileID: 21300000, guid: b1fd567c1c2ae244584de7affb7e3f2f, type: 3}
   Effect: Produce in 1 $color district twice.
-  ResearchCost: 4
+  ResearchCost: 5
   PlayerPrompt: Choose 1 district.
   DieColor: {fileID: 11400000, guid: 0db707582d742c14eb2588bf92a66143, type: 2}
   ProduceTwice: 1

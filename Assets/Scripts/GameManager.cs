@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
 
 		diceSet.ForEach((dieState) =>
 		{
-			if (dieState.CurrentFaceUp != null && !dieState.ActionUsed) allDiceActionsUsed = false;
+			if (dieState.CurrentFaceUp != null && dieState.CurrentFaceUp.Action != null && !dieState.ActionUsed) allDiceActionsUsed = false;
 		});
 
 		if (allDiceActionsUsed)

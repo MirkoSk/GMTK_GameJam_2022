@@ -94,6 +94,8 @@ public class BuildPanel : MonoBehaviour
             buttonOkay.gameObject.SetActive(true);
             buttonOkay.GetComponent<Image>().color = Color.grey;
             buttonOkay.enabled = false;
+            AudioManager.Instance.PlayButtonClick();
+
             buttonOkay.onClick.RemoveAllListeners();
             buttonOkay.onClick.AddListener(() => 
             {
@@ -104,7 +106,9 @@ public class BuildPanel : MonoBehaviour
 
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
-                
+                AudioManager.Instance.PlayButtonClick();
+                AudioManager.Instance.PlayConfirmSound();
+
                 GameEvents.ActionCompleted(die, action, true);
             });
             buttonCancel.gameObject.SetActive(true);
@@ -115,7 +119,8 @@ public class BuildPanel : MonoBehaviour
                 
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
-                
+                AudioManager.Instance.PlayButtonClick();
+
                 GameEvents.ActionCompleted(die, action, false); 
             });
             SelectBuilding(buildAction, buildColor);

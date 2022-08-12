@@ -139,6 +139,7 @@ public class Building : MonoBehaviour
 		yield return new WaitForSeconds(0.1f);
 		
 		transform.Rotate(Vector3.up, 90);
+		AudioManager.Instance.PlayBuildingDragSoundVariant();
 
 		yield return new WaitForSeconds(0.1f);
 

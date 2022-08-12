@@ -14,6 +14,7 @@ public class TurnTracker : MonoBehaviour
 
 	// Private
 	int currentTurn;
+	AudioSource audioSource;
 	#endregion
 
 
@@ -29,6 +30,8 @@ public class TurnTracker : MonoBehaviour
 	{
 		if (Instance == null) Instance = this;
 		else if (Instance != null) Destroy(gameObject);
+
+		audioSource = transform.GetRequiredComponent<AudioSource>();
 	}
 
 	private void Start()
@@ -38,12 +41,12 @@ public class TurnTracker : MonoBehaviour
 
     private void OnEnable()
     {
-		GameEvents.OnDiceRolled += AddTurn;
+		GameEvents.OnNewTurn += AddTurn;
     }
 
 	private void OnDisable()
 	{
-		GameEvents.OnDiceRolled -= AddTurn;
+		GameEvents.OnNewTurn -= AddTurn;
 	}
 	#endregion
 
@@ -54,6 +57,7 @@ public class TurnTracker : MonoBehaviour
 	{
 		currentTurn++;
 		turnTextmesh.text = currentTurn.ToString();
+		audioSource.Play();
 	}
 	#endregion
 

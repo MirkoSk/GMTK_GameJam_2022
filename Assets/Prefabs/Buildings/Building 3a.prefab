@@ -113,6 +113,7 @@ MonoBehaviour:
   raycastLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  dragSound: {fileID: 8300000, guid: 4230ca6275dcc5047a99332f25461965, type: 3}
 --- !u!1001 &1191305659692792680
 PrefabInstance:
   m_ObjectHideFlags: 0

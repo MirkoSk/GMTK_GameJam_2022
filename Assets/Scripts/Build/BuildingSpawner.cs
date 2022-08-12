@@ -37,6 +37,7 @@ public class BuildingSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler
 		draggable = Instantiate(building, hitInfo.point, Quaternion.identity);
 		draggable.GetComponent<Building>().Initialize(dieColor, buildingProductionValue);
 		eventData.pointerDrag = draggable.GetComponentInChildren<BuildingDragger>().gameObject;
+		AudioManager.Instance.PlayBuildingDragSoundVariant();
 		active = false;
 	}
 

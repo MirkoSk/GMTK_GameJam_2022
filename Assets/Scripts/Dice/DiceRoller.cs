@@ -58,6 +58,8 @@ public class DiceRoller : MonoBehaviour
             }
         }
 
+        AudioManager.Instance.PlayButtonClickVariant();
+
 		ShowRolledDice();
 
         GameEvents.DiceRolled();

@@ -112,6 +112,8 @@ public class ResearchPanel : MonoBehaviour
             if (researchAction.DieColor == null) dieForResearch = die;
             else dieForResearch = GameManager.Instance.DiceSet.Find(x => x.Die.DieColor == researchAction.DieColor).Die;
 
+            AudioManager.Instance.PlayButtonClick();
+
             if (dieForResearch.DieColor.Joker)
             {
                 for (int i = 0; i < allDieSetups.Count; i++)
@@ -144,6 +146,7 @@ public class ResearchPanel : MonoBehaviour
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
                 technologySelectionPanel.SetActive(false);
+                AudioManager.Instance.PlayButtonClick();
 
                 GameEvents.ActionCompleted(die, action, false);
             });
@@ -191,6 +194,8 @@ public class ResearchPanel : MonoBehaviour
 
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
+                AudioManager.Instance.PlayButtonClick();
+                AudioManager.Instance.PlayConfirmSound();
 
                 technologySelectionPanel.SetActive(false);
                 selectedTechs.ForEach((tech) => 

@@ -13,24 +13,26 @@ public class GoldTracker : MonoBehaviour
 
 	// Serialized Fields
 	[SerializeField] TextMeshProUGUI goldTextmesh;
-	
+
 	// Private
-	
+	AudioSource audioSource;
 	#endregion
-	
-	
-	
+
+
+
 	#region Public Properties
-	
+
 	#endregion
-	
-	
-	
+
+
+
 	#region Unity Event Functions
 	private void Awake () 
 	{
 		if (Instance == null) Instance = this;
 		else if (Instance != null) Destroy(gameObject);
+
+		audioSource = transform.GetRequiredComponent<AudioSource>();
 	}
 
     private void Start()
@@ -53,6 +55,7 @@ public class GoldTracker : MonoBehaviour
 		else
 		{
 			goldTextmesh.text = CurrentGold.ToString();
+			if (amount > 0) audioSource.Play();
 			return true;
 		}
     }

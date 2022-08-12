@@ -89,7 +89,8 @@ public class ProductionPanel : MonoBehaviour
             GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
             buttonOkay.gameObject.SetActive(false);
             buttonCancel.gameObject.SetActive(false);
-            
+            AudioManager.Instance.PlayButtonClick();
+
             GameEvents.ActionCompleted(die, action, true);
         });
         buttonCancel.gameObject.SetActive(true);
@@ -99,6 +100,7 @@ public class ProductionPanel : MonoBehaviour
             GameManager.Instance.DiceSet.Find(x => x.Die == die).ActionUsed = true;
             buttonOkay.gameObject.SetActive(false);
             buttonCancel.gameObject.SetActive(false);
+            AudioManager.Instance.PlayButtonClick();
 
             GameEvents.ActionCompleted(die, action, false);
         });

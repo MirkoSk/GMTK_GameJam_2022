@@ -61,6 +61,8 @@ public class TechnologySelector : MonoBehaviour
             throw;
         }
 
+        researchedTechnologies.Clear();
+
         for (int i = 0; i < technologies.Count; i++)
         {
             technologies[i].Initialize(researchableActions[Random.Range(0, researchableActions.Count)]);
@@ -78,6 +80,7 @@ public class TechnologySelector : MonoBehaviour
             {
                 if (technologies[i].Action != researchedAction && technologies[i].SelectedSlot != dieSlot) technologies[i].Active = false;
             }
+            if (upgradeTech.Action != researchedAction && upgradeTech.SelectedSlot != dieSlot) upgradeTech.Active = false;
         }
     }
     #endregion

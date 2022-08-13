@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FaceSprite: {fileID: 21300000, guid: 9e574d698e12c9e47b56139a00c50c0c, type: 3}
   Effect: 'Build 1:'
-  ResearchCost: 2
-  Cost: 2
+  ResearchCost: 3
+  Cost: 1
   Buildings:
   - {fileID: 8675066223685675490, guid: 442c59693fbd09c4fbbd1a7cb22d0894, type: 3}
   - {fileID: 8675066223685675490, guid: 779c6881dc3850e4e819a208e1da7288, type: 3}

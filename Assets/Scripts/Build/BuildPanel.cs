@@ -17,6 +17,7 @@ public class BuildPanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI costTextmesh;
     [SerializeField] List<Image> shapes = new List<Image>();
     [SerializeField] GameObject colorSelectionButtons;
+    [SerializeField] GameObject dragHint;
     [SerializeField] Button buttonAction;
     [SerializeField] Button buttonOkay;
     [SerializeField] Button buttonCancel;
@@ -92,6 +93,7 @@ public class BuildPanel : MonoBehaviour
             buttonAction.gameObject.SetActive(false);
             colorSelectionButtons.SetActive(false);
             buttonOkay.gameObject.SetActive(true);
+            dragHint.SetActive(true);
             buttonOkay.GetComponent<Image>().color = Color.grey;
             buttonOkay.enabled = false;
             AudioManager.Instance.PlayButtonClick();
@@ -106,6 +108,7 @@ public class BuildPanel : MonoBehaviour
 
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
+                dragHint.SetActive(false);
                 AudioManager.Instance.PlayButtonClick();
                 AudioManager.Instance.PlayConfirmSound();
 
@@ -119,6 +122,7 @@ public class BuildPanel : MonoBehaviour
                 
                 buttonOkay.gameObject.SetActive(false);
                 buttonCancel.gameObject.SetActive(false);
+                dragHint.SetActive(false);
                 AudioManager.Instance.PlayButtonClick();
 
                 GameEvents.ActionCompleted(die, action, false); 

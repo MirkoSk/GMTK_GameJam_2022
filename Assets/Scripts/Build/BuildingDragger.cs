@@ -13,6 +13,7 @@ public class BuildingDragger : MonoBehaviour, IDragHandler
 
 	// Private
 	Building parent;
+	PointerEventData eventData;
     #endregion
 
 
@@ -41,18 +42,18 @@ public class BuildingDragger : MonoBehaviour, IDragHandler
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		UpdateBuildingPlacement(eventData);
+		StartCoroutine(UpdateBuildingPlacement(eventData));
 	}
 
     private void OnTriggerEnter(Collider other)
     {
 		if (!parent.Collisions.Contains(other)) parent.Collisions.Add(other);
-    }
+	}
 
     private void OnTriggerExit(Collider other)
     {
 		if (parent.Collisions.Contains(other)) parent.Collisions.Remove(other);
-    }
+	}
 	#endregion
 
 
@@ -64,7 +65,7 @@ public class BuildingDragger : MonoBehaviour, IDragHandler
 
 
 	#region Private Functions
-	void UpdateBuildingPlacement(PointerEventData eventData)
+	IEnumerator UpdateBuildingPlacement(PointerEventData eventData)
 	{
 		Ray positionRay = Camera.main.ScreenPointToRay(new Vector3(eventData.position.x, eventData.position.y, 0));
 		RaycastHit hit;
@@ -77,6 +78,8 @@ public class BuildingDragger : MonoBehaviour, IDragHandler
 				{
 					parent.transform.position = cell.transform.position;
 					AudioManager.Instance.PlayBuildingDragSound();
+
+					yield return new WaitForSecondsRealtime(0.1f);
 
 					District currentDistrict = GameManager.Instance.Districts.Find(x => x.ID == cell.DistrictID);
 					if (parent.Collisions.Count > 0 || (currentDistrict != null && currentDistrict.DieColor != null && currentDistrict.DieColor != parent.DieColor))

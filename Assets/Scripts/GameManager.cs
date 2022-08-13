@@ -86,18 +86,23 @@ public class GameManager : MonoBehaviour
 	{
 		GameEvents.OnActionCompleted -= HandleActionCompletion;
 	}
-	#endregion
+
+    private void Update()
+    {
+		if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+    }
+    #endregion
 
 
 
-	#region Public Functions
+    #region Public Functions
 
-	#endregion
+    #endregion
 
 
 
-	#region Private Functions
-	void CreateDistrictList()
+    #region Private Functions
+    void CreateDistrictList()
 	{
 		Cell[] cells = FindObjectsOfType<Cell>();
 		for (int i = 0; i < cells.Length; i++)
